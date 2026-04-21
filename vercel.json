@@ -1,1 +1,6 @@
-{ "outputDirectory": "dist_static", "buildCommand": "", "installCommand": "", "framework": null }
+{
+  "framework": null,
+  "installCommand": "",
+  "buildCommand": "python scripts/prepare_static_deploy.py --clean",
+  "outputDirectory": "dist_static"
+}
