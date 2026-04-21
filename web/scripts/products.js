@@ -33,13 +33,21 @@ function productFeatures(product) {
   return tags;
 }
 
+function toPublicDownloadHref(outputFile) {
+  if (!outputFile) return '#contacto';
+  const normalized = String(outputFile).replace(/\\/g, '/');
+  const filename = normalized.split('/').pop();
+  if (!filename) return '#contacto';
+  return `/warehouse/templates/${encodeURIComponent(filename)}`;
+}
+
 function productCard(product) {
   const price = formatPrice(product.price_ars, product.free);
   const features = productFeatures(product)
     .map(item => `<div class="rounded-2xl bg-slate-50 p-4">✔ ${item}</div>`)
     .join('');
 
-  const downloadHref = product.output_file ? `/${product.output_file.replace(/^\/+/, '')}` : '#contacto';
+  const downloadHref = toPublicDownloadHref(product.output_file);
   const primaryText = product.free ? 'Descargar gratis' : 'Comprar este Excel';
   const category = product.category ? `<p class="mt-2 text-xs uppercase tracking-[0.2em] text-slate-400">${product.category}</p>` : '';
   const subtitle = product.subtitle || 'Herramienta lista para usar';
