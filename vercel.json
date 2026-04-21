@@ -1,5 +1,5 @@
 {
-  "outputDirectory": "dist_static",
+  "outputDirectory": "web",
   "buildCommand": "",
   "installCommand": "",
   "framework": null

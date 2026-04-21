@@ -2,13 +2,8 @@ const WHATSAPP_URL = 'https://wa.me/5491100000000?text=Hola%20Exceland,%20quiero
 const TELEGRAM_URL = 'https://t.me/exceland';
 
 // Ruta al manifest: funciona en local (/web/ → ../warehouse/) y en producción (raíz → /warehouse/)
-const MANIFEST_URL = (function () {
-  const path = window.location.pathname;
-  // Si estamos bajo /web/ (dev local), subir un nivel
-  if (path.startsWith('/web/')) return '../warehouse/manifest.json';
-  // En producción (raíz del dominio) o dist_static servido desde raíz
-  return '/warehouse/manifest.json';
-})();
+// /warehouse/ está siempre al mismo nivel que index.html (tanto en local como en producción)
+const MANIFEST_URL = '/warehouse/manifest.json';
 
 function formatPrice(price, isFree) {
   if (isFree || Number(price) === 0) return 'Gratis';
