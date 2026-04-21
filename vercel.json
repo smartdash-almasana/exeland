@@ -1,6 +1,1 @@
-{
-  "outputDirectory": "web",
-  "buildCommand": "",
-  "installCommand": "",
-  "framework": null
-}
+{ "outputDirectory": "dist_static", "buildCommand": "", "installCommand": "", "framework": null }
