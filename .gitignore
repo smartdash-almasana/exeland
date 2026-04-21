@@ -39,3 +39,4 @@ warehouse/previews/
 
 # Optional local artifacts
 tmp/
+.vercel
