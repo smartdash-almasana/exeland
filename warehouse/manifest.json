@@ -1,0 +1,123 @@
+{
+  "products": {
+    "caja_diaria": {
+      "slug": "caja_diaria",
+      "title": "Caja Diaria Pro",
+      "subtitle": "Control de ingresos y egresos diarios para tu negocio",
+      "price_ars": 4900.0,
+      "free": false,
+      "source_spec": "specs\\caja_diaria.yaml",
+      "output_file": "E:\\BuenosPasos\\exceland\\warehouse\\templates\\caja_diaria.xlsx",
+      "version": "1.0.0",
+      "category": "cashflow",
+      "status": "published",
+      "published_at": "2026-04-21T15:18:13.578412+00:00",
+      "formulas_used": [
+        "ingresos_totales",
+        "egresos_totales",
+        "flujo_caja_neto",
+        "saldo_acumulado"
+      ],
+      "tags": [
+        "caja",
+        "flujo",
+        "ingresos",
+        "egresos"
+      ],
+      "compatible_with": [
+        "excel",
+        "google_sheets"
+      ]
+    },
+    "precio_margen": {
+      "slug": "precio_margen",
+      "title": "Calculadora Precio & Margen",
+      "subtitle": "Determiná el precio ideal con margen controlado",
+      "price_ars": 3900.0,
+      "free": false,
+      "source_spec": "specs\\precio_margen.yaml",
+      "output_file": "E:\\BuenosPasos\\exceland\\warehouse\\templates\\precio_margen.xlsx",
+      "version": "1.0.0",
+      "category": "pricing",
+      "status": "published",
+      "published_at": "2026-04-21T15:18:13.938968+00:00",
+      "formulas_used": [
+        "precio_venta_con_margen",
+        "margen_bruto",
+        "margen_bruto_pesos",
+        "markup",
+        "ingresos_totales"
+      ],
+      "tags": [
+        "precio",
+        "margen",
+        "costo",
+        "markup"
+      ],
+      "compatible_with": [
+        "excel",
+        "google_sheets"
+      ]
+    },
+    "stock_control": {
+      "slug": "stock_control",
+      "title": "Control de Stock",
+      "subtitle": "Inventario, alertas y rotación para tu negocio",
+      "price_ars": 4500.0,
+      "free": false,
+      "source_spec": "specs\\stock_control.yaml",
+      "output_file": "E:\\BuenosPasos\\exceland\\warehouse\\templates\\stock_control.xlsx",
+      "version": "1.0.0",
+      "category": "stock",
+      "status": "published",
+      "published_at": "2026-04-21T15:18:14.234201+00:00",
+      "formulas_used": [
+        "alerta_stock_minimo",
+        "dias_stock_restante",
+        "costo_reposicion_promedio",
+        "rotacion_inventario"
+      ],
+      "tags": [
+        "stock",
+        "inventario",
+        "reposicion",
+        "alertas"
+      ],
+      "compatible_with": [
+        "excel",
+        "google_sheets"
+      ]
+    },
+    "punto_equilibrio": {
+      "slug": "punto_equilibrio",
+      "title": "Punto de Equilibrio",
+      "subtitle": "Cuánto tenés que vender para no perder",
+      "price_ars": 0.0,
+      "free": true,
+      "source_spec": "specs\\punto_equilibrio.yaml",
+      "output_file": "E:\\BuenosPasos\\exceland\\warehouse\\templates\\punto_equilibrio.xlsx",
+      "version": "1.0.0",
+      "category": "financial",
+      "status": "published",
+      "published_at": "2026-04-21T15:18:14.519561+00:00",
+      "formulas_used": [
+        "punto_equilibrio_unidades",
+        "margen_bruto",
+        "punto_equilibrio_pesos",
+        "ingresos_totales",
+        "egresos_totales",
+        "resultado_neto"
+      ],
+      "tags": [
+        "punto_equilibrio",
+        "break_even",
+        "costos_fijos",
+        "rentabilidad"
+      ],
+      "compatible_with": [
+        "excel",
+        "google_sheets"
+      ]
+    }
+  }
+}

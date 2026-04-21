@@ -1,0 +1,50 @@
+{
+  "brand": {
+    "name": "Exceland",
+    "tagline": "Plantillas inteligentes para tu negocio"
+  },
+  "colors": {
+    "primary":        "#1A3C5E",
+    "primary_light":  "#2D6A9F",
+    "secondary":      "#00A36C",
+    "secondary_light":"#00CC88",
+    "accent":         "#F4A01C",
+    "input_bg":       "#EAF4FF",
+    "danger_bg":      "#FFE8E8",
+    "warning_bg":     "#FFF8E1",
+    "success_bg":     "#E8F5E9",
+    "text_dark":      "#1C1C1E",
+    "text_mid":       "#4A4A4A",
+    "text_light":     "#FFFFFF",
+    "border":         "#CBD5E1",
+    "header_text":    "#FFFFFF",
+    "section_bg":     "#F1F5F9",
+    "engine_bg":      "#2D2D2D",
+    "engine_text":    "#A8D8A8",
+    "locked_bg":      "#F8FAFC",
+    "locked_border":  "#E2E8F0"
+  },
+  "font": {
+    "name":   "Calibri",
+    "size":   11,
+    "title":  18,
+    "header": 12,
+    "small":  9
+  },
+  "protection": {
+    "password": "exceland2025",
+    "allow_select_locked":   true,
+    "allow_select_unlocked": true,
+    "allow_sort":            false,
+    "allow_filter":          true
+  },
+  "layout": {
+    "col_label_width":  22,
+    "col_value_width":  18,
+    "col_unit_width":   10,
+    "col_note_width":   30,
+    "row_header_height": 28,
+    "row_title_height":  40,
+    "row_default_height": 18
+  }
+}

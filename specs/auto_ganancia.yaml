@@ -1,0 +1,126 @@
+slug: caja_diaria
+title: Caja Diaria
+subtitle: Control de ingresos y egresos de tu negocio
+version: 1.0.0
+price_ars: 4900.0
+category: cashflow
+branding:
+  primary_color: '#1A3C5E'
+  secondary_color: '#00A36C'
+  accent_color: '#F4A01C'
+sheets:
+- name: BIENVENIDA
+  type: welcome
+  protected: true
+- name: CAJA
+  type: input
+  protected: false
+  fields:
+  - id: nombre_negocio
+    label: Nombre del negocio
+    row: 5
+    col: 2
+    input_type: text
+    example: Mi Comercio
+    required: true
+  - id: mes_anio
+    label: Mes / Año
+    row: 6
+    col: 2
+    input_type: text
+    example: Enero 2025
+    required: true
+  - id: saldo_inicial
+    label: Saldo inicial (ARS)
+    row: 8
+    col: 2
+    input_type: currency
+    default: 0
+    validation: non_negative_number
+    required: true
+  - id: ingresos_ventas
+    label: Ingresos por ventas
+    row: 10
+    col: 2
+    input_type: currency
+    default: 0
+    validation: non_negative_number
+  - id: ingresos_otros
+    label: Otros ingresos
+    row: 11
+    col: 2
+    input_type: currency
+    default: 0
+    validation: non_negative_number
+  - id: egresos_proveedores
+    label: Pago a proveedores
+    row: 13
+    col: 2
+    input_type: currency
+    default: 0
+    validation: non_negative_number
+  - id: egresos_sueldos
+    label: Sueldos y cargas
+    row: 14
+    col: 2
+    input_type: currency
+    default: 0
+    validation: non_negative_number
+  - id: egresos_alquiler
+    label: Alquiler / Expensas
+    row: 15
+    col: 2
+    input_type: currency
+    default: 0
+    validation: non_negative_number
+  - id: egresos_servicios
+    label: Servicios (luz, internet, etc.)
+    row: 16
+    col: 2
+    input_type: currency
+    default: 0
+    validation: non_negative_number
+  - id: egresos_otros
+    label: Otros egresos
+    row: 17
+    col: 2
+    input_type: currency
+    default: 0
+    validation: non_negative_number
+- name: MOTOR
+  type: engine
+  protected: true
+  hidden: true
+  formulas:
+  - id: ingresos_totales
+    formula_ref: ingresos_totales
+    bindings:
+      precio_venta: SUM(CAJA!C10:C11)
+      unidades_vendidas: '1'
+  - id: egresos_totales
+    formula_ref: egresos_totales
+    bindings:
+      costos_fijos: SUM(CAJA!C13:C17)
+      costo_variable_unitario: '0'
+      unidades_vendidas: '1'
+  - id: flujo_caja_neto
+    formula_ref: flujo_caja_neto
+    bindings:
+      ingresos: MOTOR!C2
+      egresos: MOTOR!C3
+  - id: saldo_acumulado
+    formula_ref: saldo_acumulado
+    bindings:
+      saldo_anterior: CAJA!C8
+      flujo_neto: MOTOR!C4
+- name: DASHBOARD
+  type: dashboard
+  protected: true
+- name: GUIA
+  type: guide
+  protected: true
+formulas:
+- ingresos_totales
+- egresos_totales
+- flujo_caja_neto
+- saldo_acumulado

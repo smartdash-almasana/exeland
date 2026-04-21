@@ -1,0 +1,48 @@
+# Registro de productos del catálogo exceland
+# Cada producto referencia su spec YAML y sus metadatos de venta
+
+products:
+
+  caja_diaria:
+    slug: caja_diaria
+    title: "Caja Diaria Pro"
+    subtitle: "Control de ingresos y egresos diarios"
+    version: "1.0.0"
+    spec_path: "specs/caja_diaria.yaml"
+    category: cashflow
+    tags: [caja, flujo, ingresos, egresos]
+    price_ars: 4900
+    compatible_with: [excel, google_sheets]
+
+  precio_margen:
+    slug: precio_margen
+    title: "Calculadora Precio & Margen"
+    subtitle: "Determiná el precio ideal con margen controlado"
+    version: "1.0.0"
+    spec_path: "specs/precio_margen.yaml"
+    category: pricing
+    tags: [precio, margen, costo, markup]
+    price_ars: 3900
+    compatible_with: [excel, google_sheets]
+
+  stock_control:
+    slug: stock_control
+    title: "Control de Stock"
+    subtitle: "Inventario, alertas y rotación"
+    version: "1.0.0"
+    spec_path: "specs/stock_control.yaml"
+    category: stock
+    tags: [stock, inventario, reposicion, alertas]
+    price_ars: 4500
+    compatible_with: [excel, google_sheets]
+
+  punto_equilibrio:
+    slug: punto_equilibrio
+    title: "Punto de Equilibrio"
+    subtitle: "Cuánto tenés que vender para no perder"
+    version: "1.0.0"
+    spec_path: "specs/punto_equilibrio.yaml"
+    category: financial
+    tags: [punto_equilibrio, break_even, costos_fijos, rentabilidad]
+    price_ars: 0
+    compatible_with: [excel, google_sheets]

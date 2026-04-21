@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exceland — Excels que resuelven problemas reales de tu negocio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: '#0B1220',
+            soft: '#F7F8FA',
+            brand: '#0F766E',
+            brandDark: '#115E59',
+            accent: '#EAB308'
+          },
+          boxShadow: {
+            soft: '0 20px 50px rgba(2, 8, 23, 0.08)'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-white text-slate-900 antialiased">
+  <header class="border-b border-slate-200 bg-white/95 backdrop-blur sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-ink text-white grid place-items-center font-bold">E</div>
+          <div>
+            <p class="text-lg font-semibold tracking-tight">Exceland</p>
+            <p class="text-xs text-slate-500 -mt-1">Soluciones Excel para PyMEs</p>
+          </div>
+        </div>
+        <nav class="hidden md:flex items-center gap-8 text-sm text-slate-600">
+          <a href="#productos" class="hover:text-slate-900">Productos</a>
+          <a href="#como-funciona" class="hover:text-slate-900">Cómo funciona</a>
+          <a href="#faq" class="hover:text-slate-900">Preguntas</a>
+          <a href="#contacto" class="hover:text-slate-900">Soporte</a>
+        </nav>
+        <a href="#productos" class="inline-flex items-center rounded-xl bg-ink text-white px-4 py-2 text-sm font-semibold hover:bg-slate-800 transition">Ver catálogo</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="relative overflow-hidden bg-gradient-to-b from-slate-50 to-white">
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="absolute -top-24 right-0 w-96 h-96 bg-teal-100 rounded-full blur-3xl opacity-60"></div>
+      <div class="absolute top-32 -left-20 w-72 h-72 bg-amber-100 rounded-full blur-3xl opacity-50"></div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 relative">
+      <div class="grid lg:grid-cols-2 gap-14 items-center">
+        <div>
+          <div class="inline-flex items-center gap-2 rounded-full bg-white border border-slate-200 px-4 py-2 text-sm text-slate-700 shadow-sm mb-6">
+            <span class="w-2 h-2 rounded-full bg-brand"></span>
+            Descarga inmediata · Pago único · Sin suscripción
+          </div>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-tight text-ink">
+            Excels que resuelven problemas reales de tu negocio.
+          </h1>
+          <p class="mt-6 text-lg sm:text-xl text-slate-600 max-w-2xl leading-relaxed">
+            Dejá de perder tiempo armando planillas desde cero. En Exceland descargás herramientas listas para usar, con diseño claro, fórmulas ya resueltas y resultados en minutos.
+          </p>
+
+          <div class="mt-8 flex flex-col sm:flex-row gap-4">
+            <a href="#productos" class="inline-flex items-center justify-center rounded-2xl bg-brand text-white px-6 py-4 text-base font-semibold hover:bg-brandDark transition shadow-soft">
+              Ver productos y precios
+            </a>
+            <a href="#contacto" class="inline-flex items-center justify-center rounded-2xl border border-slate-300 bg-white px-6 py-4 text-base font-semibold text-slate-800 hover:border-slate-400 transition">
+              Quiero ayuda para elegir
+            </a>
+          </div>
+
+          <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+            <div class="rounded-2xl border border-slate-200 bg-white p-4">
+              <p class="font-semibold text-ink">Hecho para PyMEs</p>
+              <p class="mt-1 text-slate-600">Comercio, servicios, profesionales y negocios que viven en Excel.</p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-white p-4">
+              <p class="font-semibold text-ink">Diseño claro</p>
+              <p class="mt-1 text-slate-600">Inputs simples, cálculos protegidos y dashboard visual.</p>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-white p-4">
+              <p class="font-semibold text-ink">Soporte directo</p>
+              <p class="mt-1 text-slate-600">WhatsApp y Telegram visibles para dudas antes o después de comprar.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:pl-8">
+          <div class="rounded-3xl bg-ink text-white p-8 shadow-soft border border-slate-800">
+            <p class="text-sm uppercase tracking-[0.2em] text-teal-300">Oferta de entrada</p>
+            <h2 class="mt-3 text-3xl font-bold tracking-tight">Kit PyME Exceland</h2>
+            <p class="mt-3 text-slate-300 leading-relaxed">
+              Llevate los 4 productos clave para empezar a ordenar precios, caja, stock y fugas de dinero en tu negocio.
+            </p>
+            <div class="mt-8 flex items-end gap-3">
+              <span class="text-5xl font-bold">$14.900</span>
+              <span class="text-slate-400 line-through text-lg">$25.600</span>
+            </div>
+            <p class="mt-2 text-sm text-teal-300">Ahorrás $10.700 comprando el pack completo.</p>
+
+            <ul class="mt-8 space-y-4 text-slate-200 text-sm">
+              <li class="flex gap-3"><span class="text-accent">✓</span><span>4 Excels listos para descargar y usar</span></li>
+              <li class="flex gap-3"><span class="text-accent">✓</span><span>Hoja de guía + dashboard + celdas protegidas</span></li>
+              <li class="flex gap-3"><span class="text-accent">✓</span><span>Compra rápida y entrega por email</span></li>
+              <li class="flex gap-3"><span class="text-accent">✓</span><span>Ideal para empezar hoy sin contratar un sistema complejo</span></li>
+            </ul>
+
+            <div class="mt-8 flex flex-col sm:flex-row gap-3">
+              <a href="#contacto" class="inline-flex items-center justify-center rounded-2xl bg-white text-ink px-5 py-3 font-semibold hover:bg-slate-100 transition">
+                Quiero comprar el pack
+              </a>
+              <a href="#productos" class="inline-flex items-center justify-center rounded-2xl border border-slate-700 px-5 py-3 font-semibold text-white hover:bg-slate-900 transition">
+                Ver detalle
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="como-funciona" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl">
+        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand">Cómo funciona</p>
+        <h2 class="mt-3 text-3xl sm:text-4xl font-bold tracking-tight text-ink">Comprá en minutos. Empezá a usarlo hoy.</h2>
+        <p class="mt-4 text-lg text-slate-600">La propuesta de Exceland es simple: elegís el problema que querés resolver, pagás una sola vez y recibís una herramienta lista para usar sin tener que diseñar ni pensar fórmulas desde cero.</p>
+      </div>
+
+      <div class="mt-12 grid md:grid-cols-4 gap-6">
+        <div class="rounded-3xl border border-slate-200 p-6 bg-slate-50">
+          <div class="w-12 h-12 rounded-2xl bg-ink text-white grid place-items-center font-bold text-lg">1</div>
+          <h3 class="mt-5 text-xl font-semibold">Elegí el dolor</h3>
+          <p class="mt-3 text-slate-600">Caja, precios, stock o análisis de pérdidas. Cada Excel está pensado para un problema concreto.</p>
+        </div>
+        <div class="rounded-3xl border border-slate-200 p-6 bg-slate-50">
+          <div class="w-12 h-12 rounded-2xl bg-ink text-white grid place-items-center font-bold text-lg">2</div>
+          <h3 class="mt-5 text-xl font-semibold">Pagá una vez</h3>
+          <p class="mt-3 text-slate-600">Sin suscripción. Sin vueltas. Compra simple con botón de conversión claro y entrega rápida.</p>
+        </div>
+        <div class="rounded-3xl border border-slate-200 p-6 bg-slate-50">
+          <div class="w-12 h-12 rounded-2xl bg-ink text-white grid place-items-center font-bold text-lg">3</div>
+          <h3 class="mt-5 text-xl font-semibold">Descargá y completá</h3>
+          <p class="mt-3 text-slate-600">Abrís el archivo, cargás tus números en las celdas indicadas y el resto ya está preparado.</p>
+        </div>
+        <div class="rounded-3xl border border-slate-200 p-6 bg-slate-50">
+          <div class="w-12 h-12 rounded-2xl bg-ink text-white grid place-items-center font-bold text-lg">4</div>
+          <h3 class="mt-5 text-xl font-semibold">Tomá mejores decisiones</h3>
+          <p class="mt-3 text-slate-600">El objetivo no es tener un Excel más. Es saber qué hacer con tu negocio con más claridad.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="productos" class="py-20 bg-soft">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
+        <div class="max-w-3xl">
+          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand">Productos</p>
+          <h2 class="mt-3 text-3xl sm:text-4xl font-bold tracking-tight text-ink">Catálogo conectado al inventario real de Exceland.</h2>
+          <p class="mt-4 text-lg text-slate-600">Los productos, precios y estados se cargan desde el manifest publicado por la factoría. Así evitás inconsistencias entre landing, warehouse y archivos descargables.</p>
+        </div>
+        <a href="#contacto" class="inline-flex items-center justify-center rounded-2xl bg-white border border-slate-300 px-5 py-3 font-semibold text-slate-900 hover:border-slate-400">No sé cuál necesito</a>
+      </div>
+
+      <div class="mt-8 rounded-2xl border border-slate-200 bg-white p-4 text-sm text-slate-600">
+        <span class="font-semibold text-ink">Modo conectado:</span>
+        esta sección lee <code class="rounded bg-slate-100 px-2 py-1 text-xs">warehouse/manifest.json</code> y renderiza automáticamente productos free y pagos.
+      </div>
+
+      <div id="products-loading" class="mt-10 rounded-3xl border border-dashed border-slate-300 bg-white p-10 text-center text-slate-500">
+        Cargando catálogo real de Exceland...
+      </div>
+
+      <div id="products-error" class="hidden mt-10 rounded-3xl border border-rose-200 bg-rose-50 p-6 text-rose-700">
+        No se pudo cargar el manifest del warehouse. Verificá que <strong>/warehouse/manifest.json</strong> esté publicado y accesible.
+      </div>
+
+      <div id="products-grid" class="mt-12 grid lg:grid-cols-2 gap-8"></div>
+    </div>
+  </section>
+
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="rounded-3xl bg-ink text-white p-8 lg:p-12 shadow-soft">
+        <div class="grid lg:grid-cols-[1.4fr_1fr] gap-10 items-center">
+          <div>
+            <p class="text-sm font-semibold uppercase tracking-[0.2em] text-teal-300">Oferta destacada</p>
+            <h2 class="mt-3 text-3xl sm:text-4xl font-bold tracking-tight">Llevate el Pack Exceland y resolvé 4 frentes críticos de tu negocio.</h2>
+            <p class="mt-4 text-slate-300 text-lg leading-relaxed">Si querés entrar fuerte, esta es la mejor compra. Tenés caja, precios, stock y análisis de pérdidas con un único pago y todo listo para empezar.</p>
+          </div>
+          <div class="rounded-3xl bg-white/5 border border-white/10 p-8">
+            <p class="text-sm text-slate-300">Pack completo</p>
+            <div class="mt-2 flex items-end gap-3">
+              <span class="text-5xl font-bold">$14.900</span>
+              <span class="text-slate-400 line-through text-lg">$25.600</span>
+            </div>
+            <p class="mt-2 text-teal-300 text-sm">Ahorro inmediato visible para aumentar conversión.</p>
+            <div class="mt-8 flex flex-col gap-3">
+              <a href="#contacto" class="inline-flex items-center justify-center rounded-2xl bg-white text-ink px-5 py-3 font-semibold hover:bg-slate-100 transition">Quiero el pack</a>
+              <a href="#productos" class="inline-flex items-center justify-center rounded-2xl border border-white/15 px-5 py-3 font-semibold text-white hover:bg-white/5 transition">Comparar productos</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto" class="py-20 bg-soft">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-10 items-start">
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand">Compra asistida</p>
+          <h2 class="mt-3 text-3xl sm:text-4xl font-bold tracking-tight text-ink">¿Tenés dudas? Te respondemos por WhatsApp o Telegram.</h2>
+          <p class="mt-4 text-lg text-slate-600 leading-relaxed">Si no sabés qué producto te conviene, si querés confirmar compatibilidad o si necesitás una recomendación rápida, te atendemos por mensaje directo.</p>
+
+          <div class="mt-8 grid sm:grid-cols-2 gap-4">
+            <a href="https://wa.me/5491100000000?text=Hola%20Exceland,%20quiero%20que%20me%20ayuden%20a%20elegir%20una%20planilla" class="rounded-3xl bg-[#25D366] text-white p-6 shadow-soft hover:scale-[1.01] transition">
+              <p class="text-sm uppercase tracking-wide opacity-90">WhatsApp</p>
+              <p class="mt-2 text-2xl font-bold">+54 9 11 0000-0000</p>
+              <p class="mt-3 text-white/90">Respuesta rápida para compra asistida y soporte comercial.</p>
+              <span class="mt-5 inline-flex font-semibold">Escribir ahora →</span>
+            </a>
+            <a href="https://t.me/exceland" class="rounded-3xl bg-[#229ED9] text-white p-6 shadow-soft hover:scale-[1.01] transition">
+              <p class="text-sm uppercase tracking-wide opacity-90">Telegram</p>
+              <p class="mt-2 text-2xl font-bold">@exceland</p>
+              <p class="mt-3 text-white/90">Canal directo para dudas, recomendaciones y seguimiento.</p>
+              <span class="mt-5 inline-flex font-semibold">Abrir Telegram →</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="rounded-3xl bg-white border border-slate-200 shadow-soft p-8">
+          <h3 class="text-2xl font-bold tracking-tight text-ink">Qué ofrece esta landing</h3>
+          <ul class="mt-6 space-y-4 text-slate-700 leading-relaxed">
+            <li><span class="font-semibold text-ink">Catálogo claro:</span> 4 productos visibles, cada uno con promesa, dolor, precio y CTA.</li>
+            <li><span class="font-semibold text-ink">Conversión rápida:</span> botones directos para compra, pack y consulta asistida.</li>
+            <li><span class="font-semibold text-ink">Canales visibles:</span> WhatsApp y Telegram por encima de cualquier fricción.</li>
+            <li><span class="font-semibold text-ink">Valor percibido:</span> copy orientado a resultado, no a fórmulas ni tecnicismos.</li>
+            <li><span class="font-semibold text-ink">Escalable:</span> podés conectar checkout, webhook y entrega automática sin cambiar la estructura visual.</li>
+          </ul>
+
+          <div class="mt-8 rounded-2xl bg-slate-50 p-5 border border-slate-200">
+            <p class="text-sm text-slate-500">CTA recomendado</p>
+            <p class="mt-2 font-semibold text-ink">“No sé cuál necesito. Recomiéndenme uno.”</p>
+            <p class="mt-2 text-sm text-slate-600">Este mensaje convierte muy bien en WhatsApp y Telegram porque baja la fricción y abre conversación.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="py-20 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center">
+        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand">Preguntas frecuentes</p>
+        <h2 class="mt-3 text-3xl sm:text-4xl font-bold tracking-tight text-ink">Lo necesario para cerrar la compra sin fricción.</h2>
+      </div>
+
+      <div class="mt-12 space-y-4">
+        <div class="rounded-2xl border border-slate-200 p-6">
+          <h3 class="font-semibold text-lg text-ink">¿Los Excels funcionan en Google Sheets?</h3>
+          <p class="mt-2 text-slate-600">Sí. La estructura está pensada para Excel y también para uso compatible con Google Sheets en la mayoría de los casos.</p>
+        </div>
+        <div class="rounded-2xl border border-slate-200 p-6">
+          <h3 class="font-semibold text-lg text-ink">¿Es pago único o suscripción?</h3>
+          <p class="mt-2 text-slate-600">Pago único. Comprás, descargás y usás. No hay abono mensual en esta etapa.</p>
+        </div>
+        <div class="rounded-2xl border border-slate-200 p-6">
+          <h3 class="font-semibold text-lg text-ink">¿Puedo hablar con alguien antes de comprar?</h3>
+          <p class="mt-2 text-slate-600">Sí. WhatsApp y Telegram están visibles para que puedas pedir una recomendación o hacer una consulta puntual.</p>
+        </div>
+        <div class="rounded-2xl border border-slate-200 p-6">
+          <h3 class="font-semibold text-lg text-ink">¿Estos productos reemplazan un sistema completo?</h3>
+          <p class="mt-2 text-slate-600">No. Son herramientas prácticas para resolver dolores concretos rápido, sin tener que implementar un SaaS complejo desde el día uno.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="./scripts/products.js"></script>
+
+
+  <footer class="border-t border-slate-200 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <p class="font-semibold text-ink">Exceland</p>
+          <p class="text-sm text-slate-600 mt-1">Excels listos para resolver dolores reales de PyMEs.</p>
+        </div>
+        <div class="flex flex-wrap gap-4 text-sm text-slate-600">
+          <a href="#productos" class="hover:text-slate-900">Productos</a>
+          <a href="#contacto" class="hover:text-slate-900">WhatsApp</a>
+          <a href="#contacto" class="hover:text-slate-900">Telegram</a>
+          <a href="#faq" class="hover:text-slate-900">FAQ</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

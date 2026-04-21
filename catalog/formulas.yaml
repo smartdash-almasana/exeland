@@ -1,0 +1,150 @@
+# Catálogo canónico de fórmulas de Exceland
+# Cada fórmula define su categoría, descripción, inputs esperados,
+# la fórmula Excel/GSheets y el tipo de output.
+# Los placeholders {VAR} se reemplazan en runtime por referencias de celda.
+
+formulas:
+
+  margen_bruto:
+    category: pricing
+    description: "Margen bruto sobre precio de venta (fracción)"
+    inputs:
+      precio_venta: "Precio de venta unitario"
+      costo_unitario: "Costo unitario del producto"
+    excel_formula: "=({precio_venta}-{costo_unitario})/{precio_venta}"
+    output_type: percentage
+    notes: "Retorna fracción; formatear como %. Si precio_venta=0 retorna error #DIV/0!"
+
+  margen_bruto_pesos:
+    category: pricing
+    description: "Margen bruto en moneda (precio - costo)"
+    inputs:
+      precio_venta: "Precio de venta unitario"
+      costo_unitario: "Costo unitario del producto"
+    excel_formula: "={precio_venta}-{costo_unitario}"
+    output_type: currency
+
+  precio_venta_con_margen:
+    category: pricing
+    description: "Precio de venta dado costo y margen objetivo"
+    inputs:
+      costo_unitario: "Costo unitario del producto"
+      margen_objetivo: "Margen objetivo (fracción, ej 0.40)"
+    excel_formula: "={costo_unitario}/(1-{margen_objetivo})"
+    output_type: currency
+    notes: "margen_objetivo debe ser <1; si =1, #DIV/0!"
+
+  punto_equilibrio_unidades:
+    category: financial
+    description: "Unidades mínimas para cubrir costos fijos"
+    inputs:
+      costos_fijos: "Total costos fijos del período"
+      precio_venta: "Precio de venta unitario"
+      costo_variable_unitario: "Costo variable por unidad"
+    excel_formula: "={costos_fijos}/({precio_venta}-{costo_variable_unitario})"
+    output_type: integer
+    notes: "Contribución marginal = precio_venta - costo_variable_unitario"
+
+  punto_equilibrio_pesos:
+    category: financial
+    description: "Ingresos mínimos para cubrir costos fijos"
+    inputs:
+      costos_fijos: "Total costos fijos del período"
+      margen_contribucion: "Margen de contribución (fracción)"
+    excel_formula: "={costos_fijos}/{margen_contribucion}"
+    output_type: currency
+
+  ingresos_totales:
+    category: financial
+    description: "Ingresos totales del período"
+    inputs:
+      precio_venta: "Precio de venta unitario"
+      unidades_vendidas: "Cantidad de unidades vendidas"
+    excel_formula: "={precio_venta}*{unidades_vendidas}"
+    output_type: currency
+
+  egresos_totales:
+    category: financial
+    description: "Total de egresos (costos fijos + variables)"
+    inputs:
+      costos_fijos: "Costos fijos del período"
+      costo_variable_unitario: "Costo variable por unidad"
+      unidades_vendidas: "Unidades vendidas"
+    excel_formula: "={costos_fijos}+({costo_variable_unitario}*{unidades_vendidas})"
+    output_type: currency
+
+  resultado_neto:
+    category: financial
+    description: "Resultado neto del período (ingresos - egresos)"
+    inputs:
+      ingresos_totales: "Ingresos totales del período"
+      egresos_totales: "Egresos totales del período"
+    excel_formula: "={ingresos_totales}-{egresos_totales}"
+    output_type: currency
+    notes: "Positivo = ganancia; negativo = pérdida"
+
+  costo_reposicion_promedio:
+    category: stock
+    description: "Costo promedio ponderado de reposición de stock"
+    inputs:
+      stock_actual: "Unidades en stock"
+      costo_actual: "Costo unitario actual"
+      unidades_nuevas: "Unidades a reponer"
+      costo_nuevo: "Costo unitario de reposición"
+    excel_formula: "=({stock_actual}*{costo_actual}+{unidades_nuevas}*{costo_nuevo})/({stock_actual}+{unidades_nuevas})"
+    output_type: currency
+
+  alerta_stock_minimo:
+    category: stock
+    description: "Indica si el stock está por debajo del mínimo (1=alerta, 0=ok)"
+    inputs:
+      stock_actual: "Unidades en stock actualmente"
+      stock_minimo: "Umbral mínimo de stock"
+    excel_formula: "=IF({stock_actual}<={stock_minimo},1,0)"
+    output_type: boolean
+    notes: "Usar formato condicional en la celda de output para mostrar alerta visual"
+
+  dias_stock_restante:
+    category: stock
+    description: "Días de stock restante según velocidad de ventas"
+    inputs:
+      stock_actual: "Unidades en stock"
+      ventas_diarias_promedio: "Promedio de unidades vendidas por día"
+    excel_formula: "=IF({ventas_diarias_promedio}=0,\"Sin datos\",{stock_actual}/{ventas_diarias_promedio})"
+    output_type: number
+
+  rotacion_inventario:
+    category: stock
+    description: "Rotación de inventario en el período"
+    inputs:
+      costo_mercaderia_vendida: "CMV del período"
+      inventario_promedio: "Inventario promedio del período"
+    excel_formula: "=IF({inventario_promedio}=0,0,{costo_mercaderia_vendida}/{inventario_promedio})"
+    output_type: number
+
+  flujo_caja_neto:
+    category: cashflow
+    description: "Flujo de caja neto del día/período"
+    inputs:
+      ingresos: "Total ingresos cobrados"
+      egresos: "Total egresos pagados"
+    excel_formula: "={ingresos}-{egresos}"
+    output_type: currency
+
+  saldo_acumulado:
+    category: cashflow
+    description: "Saldo acumulado (saldo anterior + flujo neto del día)"
+    inputs:
+      saldo_anterior: "Saldo del período anterior"
+      flujo_neto: "Flujo neto del período actual"
+    excel_formula: "={saldo_anterior}+{flujo_neto}"
+    output_type: currency
+
+  markup:
+    category: pricing
+    description: "Markup sobre costo (porcentaje de ganancia sobre costo)"
+    inputs:
+      precio_venta: "Precio de venta"
+      costo_unitario: "Costo unitario"
+    excel_formula: "=({precio_venta}/{costo_unitario})-1"
+    output_type: percentage

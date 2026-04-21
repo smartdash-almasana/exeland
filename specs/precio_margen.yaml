@@ -1,0 +1,122 @@
+slug: precio_margen
+title: "Calculadora Precio & Margen"
+subtitle: "Determiná el precio ideal con margen controlado"
+version: "1.0.0"
+price_ars: 3900
+category: pricing
+
+branding:
+  primary_color: "#1A3C5E"
+  secondary_color: "#00A36C"
+  accent_color: "#F4A01C"
+
+sheets:
+  - name: BIENVENIDA
+    type: welcome
+    protected: true
+
+  - name: DATOS
+    type: input
+    protected: false
+    fields:
+      - id: nombre_producto
+        label: "Nombre del producto"
+        row: 5
+        col: 2
+        input_type: text
+        example: "Remera básica"
+        required: true
+
+      - id: costo_unitario
+        label: "Costo unitario (ARS)"
+        row: 7
+        col: 2
+        input_type: currency
+        default: 0
+        validation: positive_number
+        required: true
+
+      - id: margen_objetivo
+        label: "Margen objetivo (%)"
+        row: 8
+        col: 2
+        input_type: percentage
+        default: 0.40
+        validation: percentage_0_1
+        required: true
+        hint: "Ejemplo: 0.40 = 40%"
+
+      - id: precio_referencia
+        label: "Precio de referencia competencia"
+        row: 10
+        col: 2
+        input_type: currency
+        default: 0
+        validation: non_negative_number
+
+      - id: descuento_especial
+        label: "Descuento especial (%)"
+        row: 11
+        col: 2
+        input_type: percentage
+        default: 0
+        validation: percentage_0_1
+        hint: "Ejemplo: 0.10 = 10% de descuento"
+
+      - id: unidades_estimadas
+        label: "Unidades a vender (mes)"
+        row: 13
+        col: 2
+        input_type: integer
+        default: 0
+        validation: integer_non_negative
+
+  - name: MOTOR
+    type: engine
+    protected: true
+    hidden: true
+    formulas:
+      - id: precio_venta_con_margen
+        formula_ref: precio_venta_con_margen
+        bindings:
+          costo_unitario: DATOS!C7
+          margen_objetivo: DATOS!C8
+
+      - id: margen_bruto
+        formula_ref: margen_bruto
+        bindings:
+          precio_venta: MOTOR!C5
+          costo_unitario: DATOS!C7
+
+      - id: margen_bruto_pesos
+        formula_ref: margen_bruto_pesos
+        bindings:
+          precio_venta: MOTOR!C2
+          costo_unitario: DATOS!C7
+
+      - id: markup
+        formula_ref: markup
+        bindings:
+          precio_venta: MOTOR!C2
+          costo_unitario: DATOS!C7
+
+      - id: ingresos_totales
+        formula_ref: ingresos_totales
+        bindings:
+          precio_venta: MOTOR!C2
+          unidades_vendidas: DATOS!C13
+
+  - name: DASHBOARD
+    type: dashboard
+    protected: true
+
+  - name: GUIA
+    type: guide
+    protected: true
+
+formulas:
+  - precio_venta_con_margen
+  - margen_bruto
+  - margen_bruto_pesos
+  - markup
+  - ingresos_totales

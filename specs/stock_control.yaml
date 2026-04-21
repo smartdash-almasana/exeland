@@ -1,0 +1,139 @@
+slug: stock_control
+title: "Control de Stock"
+subtitle: "Inventario, alertas y rotación para tu negocio"
+version: "1.0.0"
+price_ars: 4500
+category: stock
+
+branding:
+  primary_color: "#1A3C5E"
+  secondary_color: "#00A36C"
+  accent_color: "#F4A01C"
+
+sheets:
+  - name: BIENVENIDA
+    type: welcome
+    protected: true
+
+  - name: STOCK
+    type: input
+    protected: false
+    fields:
+      - id: nombre_producto
+        label: "Nombre del producto"
+        row: 5
+        col: 2
+        input_type: text
+        example: "Producto A"
+        required: true
+
+      - id: stock_actual
+        label: "Stock actual (unidades)"
+        row: 7
+        col: 2
+        input_type: integer
+        default: 0
+        validation: integer_non_negative
+        required: true
+
+      - id: stock_minimo
+        label: "Stock mínimo de alerta"
+        row: 8
+        col: 2
+        input_type: integer
+        default: 5
+        validation: integer_non_negative
+        required: true
+
+      - id: ventas_diarias
+        label: "Ventas promedio diarias (uds)"
+        row: 9
+        col: 2
+        input_type: number
+        default: 0
+        validation: non_negative_number
+
+      - id: costo_actual
+        label: "Costo unitario actual (ARS)"
+        row: 11
+        col: 2
+        input_type: currency
+        default: 0
+        validation: non_negative_number
+
+      - id: unidades_reponer
+        label: "Unidades a reponer"
+        row: 12
+        col: 2
+        input_type: integer
+        default: 0
+        validation: integer_non_negative
+
+      - id: costo_reposicion
+        label: "Costo unitario reposición (ARS)"
+        row: 13
+        col: 2
+        input_type: currency
+        default: 0
+        validation: non_negative_number
+
+      - id: costo_mercaderia_vendida
+        label: "CMV del período (ARS)"
+        row: 15
+        col: 2
+        input_type: currency
+        default: 0
+        validation: non_negative_number
+
+      - id: inventario_promedio
+        label: "Inventario promedio período (ARS)"
+        row: 16
+        col: 2
+        input_type: currency
+        default: 0
+        validation: non_negative_number
+
+  - name: MOTOR
+    type: engine
+    protected: true
+    hidden: true
+    formulas:
+      - id: alerta_stock_minimo
+        formula_ref: alerta_stock_minimo
+        bindings:
+          stock_actual: STOCK!C7
+          stock_minimo: STOCK!C8
+
+      - id: dias_stock_restante
+        formula_ref: dias_stock_restante
+        bindings:
+          stock_actual: STOCK!C7
+          ventas_diarias_promedio: STOCK!C9
+
+      - id: costo_reposicion_promedio
+        formula_ref: costo_reposicion_promedio
+        bindings:
+          stock_actual: STOCK!C7
+          costo_actual: STOCK!C11
+          unidades_nuevas: STOCK!C12
+          costo_nuevo: STOCK!C13
+
+      - id: rotacion_inventario
+        formula_ref: rotacion_inventario
+        bindings:
+          costo_mercaderia_vendida: STOCK!C15
+          inventario_promedio: STOCK!C16
+
+  - name: DASHBOARD
+    type: dashboard
+    protected: true
+
+  - name: GUIA
+    type: guide
+    protected: true
+
+formulas:
+  - alerta_stock_minimo
+  - dias_stock_restante
+  - costo_reposicion_promedio
+  - rotacion_inventario

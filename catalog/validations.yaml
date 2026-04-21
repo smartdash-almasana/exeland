@@ -1,0 +1,54 @@
+# Catálogo de validaciones para campos de input
+# Se aplican via openpyxl en postprocess.py
+
+validations:
+
+  positive_number:
+    type: decimal
+    operator: greaterThan
+    formula1: "0"
+    error_title: "Valor inválido"
+    error_message: "Este campo requiere un número mayor a cero."
+    show_error: true
+
+  non_negative_number:
+    type: decimal
+    operator: greaterThanOrEqual
+    formula1: "0"
+    error_title: "Valor inválido"
+    error_message: "Este campo requiere un número igual o mayor a cero."
+    show_error: true
+
+  percentage_0_1:
+    type: decimal
+    operator: between
+    formula1: "0"
+    formula2: "1"
+    error_title: "Porcentaje inválido"
+    error_message: "Ingresar como fracción entre 0 y 1. Ejemplo: 0.40 para 40%."
+    show_error: true
+
+  percentage_0_100:
+    type: decimal
+    operator: between
+    formula1: "0"
+    formula2: "100"
+    error_title: "Porcentaje inválido"
+    error_message: "Ingresar entre 0 y 100."
+    show_error: true
+
+  integer_positive:
+    type: whole
+    operator: greaterThan
+    formula1: "0"
+    error_title: "Valor inválido"
+    error_message: "Este campo requiere un número entero positivo."
+    show_error: true
+
+  integer_non_negative:
+    type: whole
+    operator: greaterThanOrEqual
+    formula1: "0"
+    error_title: "Valor inválido"
+    error_message: "Este campo requiere un número entero igual o mayor a cero."
+    show_error: true
