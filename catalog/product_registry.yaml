@@ -46,3 +46,91 @@ products:
     tags: [punto_equilibrio, break_even, costos_fijos, rentabilidad]
     price_ars: 0
     compatible_with: [excel, google_sheets]
+
+  costos_por_producto:
+    slug: costos_por_producto
+    title: "Costos por Producto"
+    subtitle: "Desglosá el costo real de cada producto"
+    version: "1.0.0"
+    spec_path: "specs/costos_por_producto.yaml"
+    category: financial
+    tags: [costos, producto, margen, rentabilidad]
+    price_ars: 4500
+    compatible_with: [excel, google_sheets]
+
+  flujo_de_fondos:
+    slug: flujo_de_fondos
+    title: "Flujo de Fondos"
+    subtitle: "Proyectá entradas y salidas de dinero en el tiempo"
+    version: "1.0.0"
+    spec_path: "specs/flujo_de_fondos.yaml"
+    category: cashflow
+    tags: [flujo, fondos, proyeccion, liquidez]
+    price_ars: 5900
+    compatible_with: [excel, google_sheets]
+
+  control_de_gastos:
+    slug: control_de_gastos
+    title: "Control de Gastos"
+    subtitle: "Registrá y categorizá todos tus gastos"
+    version: "1.0.0"
+    spec_path: "specs/control_de_gastos.yaml"
+    category: cashflow
+    tags: [gastos, control, categorias, presupuesto]
+    price_ars: 3900
+    compatible_with: [excel, google_sheets]
+
+  rentabilidad_por_producto:
+    slug: rentabilidad_por_producto
+    title: "Rentabilidad por Producto"
+    subtitle: "Identificá qué productos te generan más ganancia"
+    version: "1.0.0"
+    spec_path: "specs/rentabilidad_por_producto.yaml"
+    category: financial
+    tags: [rentabilidad, producto, ganancia, margen]
+    price_ars: 4900
+    compatible_with: [excel, google_sheets]
+
+  compras_y_proveedores:
+    slug: compras_y_proveedores
+    title: "Compras y Proveedores"
+    subtitle: "Gestioná órdenes de compra y seguimiento de proveedores"
+    version: "1.0.0"
+    spec_path: "specs/compras_y_proveedores.yaml"
+    category: stock
+    tags: [compras, proveedores, ordenes, inventario]
+    price_ars: 4900
+    compatible_with: [excel, google_sheets]
+
+  cuentas_corrientes_clientes:
+    slug: cuentas_corrientes_clientes
+    title: "Cuentas Corrientes de Clientes"
+    subtitle: "Controlá deudas, pagos y saldos por cliente"
+    version: "1.0.0"
+    spec_path: "specs/cuentas_corrientes_clientes.yaml"
+    category: financial
+    tags: [clientes, cuentas_corrientes, deudas, cobros]
+    price_ars: 5900
+    compatible_with: [excel, google_sheets]
+
+  simulador_inflacion:
+    slug: simulador_inflacion
+    title: "Simulador de Inflación"
+    subtitle: "Proyectá el impacto de la inflación en tus precios y costos"
+    version: "1.0.0"
+    spec_path: "specs/simulador_inflacion.yaml"
+    category: pricing
+    tags: [inflacion, simulador, precios, ajuste]
+    price_ars: 3900
+    compatible_with: [excel, google_sheets]
+
+  proyeccion_ventas:
+    slug: proyeccion_ventas
+    title: "Proyección de Ventas"
+    subtitle: "Estimá tus ventas futuras con tendencias y estacionalidad"
+    version: "1.0.0"
+    spec_path: "specs/proyeccion_ventas.yaml"
+    category: financial
+    tags: [ventas, proyeccion, tendencia, forecast]
+    price_ars: 4900
+    compatible_with: [excel, google_sheets]

@@ -50,8 +50,8 @@ sheets:
       - {id: "cli3_saldo_nuevo", formula_ref: "saldo_acumulado", bindings: {saldo_anterior: "CLIENTES!C16+CLIENTES!C17", flujo_neto: "-CLIENTES!C18"}}
 
       # Totales
-      - {id: "total_deuda_anterior", formula_ref: "egresos_totales", bindings: {costos_fijos: "SUM(CLIENTES!C6,CLIENTES!C11,CLIENTES!C16)", costo_variable_unitario: 0, unidades_vendidas: 1}}
-      - {id: "total_deuda_actual", formula_ref: "egresos_totales", bindings: {costos_fijos: "SUM(MOTOR!C2,MOTOR!C3,MOTOR!C4)", costo_variable_unitario: 0, unidades_vendidas: 1}}
+      - {id: "total_deuda_anterior", formula_ref: "egresos_totales", bindings: {costos_fijos: "SUM(CLIENTES!C6,CLIENTES!C11,CLIENTES!C16)", costo_variable_unitario: "0", unidades_vendidas: "1"}}
+      - {id: "total_deuda_actual", formula_ref: "egresos_totales", bindings: {costos_fijos: "SUM(MOTOR!C2,MOTOR!C3,MOTOR!C4)", costo_variable_unitario: "0", unidades_vendidas: "1"}}
 
   - name: "DASHBOARD"
     type: "dashboard"

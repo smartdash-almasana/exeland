@@ -11,7 +11,7 @@
       "version": "1.0.0",
       "category": "cashflow",
       "status": "published",
-      "published_at": "2026-04-21T15:18:13.578412+00:00",
+      "published_at": "2026-04-22T01:44:20.430684+00:00",
       "formulas_used": [
         "ingresos_totales",
         "egresos_totales",
@@ -40,7 +40,7 @@
       "version": "1.0.0",
       "category": "pricing",
       "status": "published",
-      "published_at": "2026-04-21T15:18:13.938968+00:00",
+      "published_at": "2026-04-22T01:44:20.552000+00:00",
       "formulas_used": [
         "precio_venta_con_margen",
         "margen_bruto",
@@ -70,7 +70,7 @@
       "version": "1.0.0",
       "category": "stock",
       "status": "published",
-      "published_at": "2026-04-21T15:18:14.234201+00:00",
+      "published_at": "2026-04-22T01:44:20.675460+00:00",
       "formulas_used": [
         "alerta_stock_minimo",
         "dias_stock_restante",
@@ -99,7 +99,7 @@
       "version": "1.0.0",
       "category": "financial",
       "status": "published",
-      "published_at": "2026-04-21T15:18:14.519561+00:00",
+      "published_at": "2026-04-22T01:44:20.795498+00:00",
       "formulas_used": [
         "punto_equilibrio_unidades",
         "margen_bruto",
@@ -113,6 +113,222 @@
         "break_even",
         "costos_fijos",
         "rentabilidad"
+      ],
+      "compatible_with": [
+        "excel",
+        "google_sheets"
+      ]
+    },
+    "costos_por_producto": {
+      "slug": "costos_por_producto",
+      "title": "Costos por Producto",
+      "subtitle": "Calculá el costo real de cada uno de tus productos",
+      "price_ars": 4200.0,
+      "free": false,
+      "source_spec": "specs\\costos_por_producto.yaml",
+      "output_file": "E:\\BuenosPasos\\exceland\\warehouse\\templates\\costos_por_producto.xlsx",
+      "version": "1.0.0",
+      "category": "pricing",
+      "status": "published",
+      "published_at": "2026-04-22T01:44:20.914202+00:00",
+      "formulas_used": [
+        "egresos_totales",
+        "ingresos_totales"
+      ],
+      "tags": [
+        "costos",
+        "producto",
+        "margen",
+        "rentabilidad"
+      ],
+      "compatible_with": [
+        "excel",
+        "google_sheets"
+      ]
+    },
+    "flujo_de_fondos": {
+      "slug": "flujo_de_fondos",
+      "title": "Flujo de Fondos Proyectado",
+      "subtitle": "Proyectá tus ingresos y egresos para anticipar tu saldo de caja",
+      "price_ars": 5200.0,
+      "free": false,
+      "source_spec": "specs\\flujo_de_fondos.yaml",
+      "output_file": "E:\\BuenosPasos\\exceland\\warehouse\\templates\\flujo_de_fondos.xlsx",
+      "version": "1.0.0",
+      "category": "cashflow",
+      "status": "published",
+      "published_at": "2026-04-22T01:44:21.036690+00:00",
+      "formulas_used": [
+        "flujo_caja_neto",
+        "saldo_acumulado"
+      ],
+      "tags": [
+        "flujo",
+        "fondos",
+        "proyeccion",
+        "liquidez"
+      ],
+      "compatible_with": [
+        "excel",
+        "google_sheets"
+      ]
+    },
+    "rentabilidad_por_producto": {
+      "slug": "rentabilidad_por_producto",
+      "title": "Rentabilidad por Producto",
+      "subtitle": "Identificá qué productos te dan más ganancia",
+      "price_ars": 5500.0,
+      "free": false,
+      "source_spec": "specs\\rentabilidad_por_producto.yaml",
+      "output_file": "E:\\BuenosPasos\\exceland\\warehouse\\templates\\rentabilidad_por_producto.xlsx",
+      "version": "1.0.0",
+      "category": "financial",
+      "status": "published",
+      "published_at": "2026-04-22T01:44:21.294896+00:00",
+      "formulas_used": [
+        "margen_bruto_pesos",
+        "margen_bruto",
+        "ingresos_totales"
+      ],
+      "tags": [
+        "rentabilidad",
+        "producto",
+        "ganancia",
+        "margen"
+      ],
+      "compatible_with": [
+        "excel",
+        "google_sheets"
+      ]
+    },
+    "simulador_inflacion": {
+      "slug": "simulador_inflacion",
+      "title": "Simulador de Inflación",
+      "subtitle": "Proyectá cómo la inflación afecta tus precios y costos",
+      "price_ars": 5800.0,
+      "free": false,
+      "source_spec": "specs\\simulador_inflacion.yaml",
+      "output_file": "E:\\BuenosPasos\\exceland\\warehouse\\templates\\simulador_inflacion.xlsx",
+      "version": "1.0.0",
+      "category": "financial",
+      "status": "published",
+      "published_at": "2026-04-22T01:44:21.714251+00:00",
+      "formulas_used": [
+        "ingresos_totales",
+        "margen_bruto"
+      ],
+      "tags": [
+        "inflacion",
+        "simulador",
+        "precios",
+        "ajuste"
+      ],
+      "compatible_with": [
+        "excel",
+        "google_sheets"
+      ]
+    },
+    "proyeccion_ventas": {
+      "slug": "proyeccion_ventas",
+      "title": "Proyección de Ventas",
+      "subtitle": "Estimá tus ventas futuras basado en datos históricos y estacionalidad",
+      "price_ars": 5300.0,
+      "free": false,
+      "source_spec": "specs\\proyeccion_ventas.yaml",
+      "output_file": "E:\\BuenosPasos\\exceland\\warehouse\\templates\\proyeccion_ventas.xlsx",
+      "version": "1.0.0",
+      "category": "financial",
+      "status": "published",
+      "published_at": "2026-04-22T01:44:21.831947+00:00",
+      "formulas_used": [
+        "ingresos_totales"
+      ],
+      "tags": [
+        "ventas",
+        "proyeccion",
+        "tendencia",
+        "forecast"
+      ],
+      "compatible_with": [
+        "excel",
+        "google_sheets"
+      ]
+    },
+    "control_de_gastos": {
+      "slug": "control_de_gastos",
+      "title": "Control de Gastos",
+      "subtitle": "Registrá y categorizá todos los gastos de tu negocio",
+      "price_ars": 4800.0,
+      "free": false,
+      "source_spec": "specs\\control_de_gastos.yaml",
+      "output_file": "E:\\BuenosPasos\\exceland\\warehouse\\templates\\control_de_gastos.xlsx",
+      "version": "1.0.0",
+      "category": "financial",
+      "status": "published",
+      "published_at": "2026-04-22T01:44:21.161799+00:00",
+      "formulas_used": [
+        "egresos_totales",
+        "resultado_neto"
+      ],
+      "tags": [
+        "gastos",
+        "control",
+        "categorias",
+        "presupuesto"
+      ],
+      "compatible_with": [
+        "excel",
+        "google_sheets"
+      ]
+    },
+    "compras_y_proveedores": {
+      "slug": "compras_y_proveedores",
+      "title": "Compras y Proveedores",
+      "subtitle": "Gestioná tus órdenes de compra y el rendimiento de tus proveedores",
+      "price_ars": 4900.0,
+      "free": false,
+      "source_spec": "specs\\compras_y_proveedores.yaml",
+      "output_file": "E:\\BuenosPasos\\exceland\\warehouse\\templates\\compras_y_proveedores.xlsx",
+      "version": "1.0.0",
+      "category": "stock",
+      "status": "published",
+      "published_at": "2026-04-22T01:44:21.417410+00:00",
+      "formulas_used": [
+        "egresos_totales",
+        "costo_reposicion_promedio"
+      ],
+      "tags": [
+        "compras",
+        "proveedores",
+        "ordenes",
+        "inventario"
+      ],
+      "compatible_with": [
+        "excel",
+        "google_sheets"
+      ]
+    },
+    "cuentas_corrientes_clientes": {
+      "slug": "cuentas_corrientes_clientes",
+      "title": "Cuentas Corrientes Clientes",
+      "subtitle": "Seguimiento de saldos y deudas de tus clientes",
+      "price_ars": 5100.0,
+      "free": false,
+      "source_spec": "specs\\cuentas_corrientes_clientes.yaml",
+      "output_file": "E:\\BuenosPasos\\exceland\\warehouse\\templates\\cuentas_corrientes_clientes.xlsx",
+      "version": "1.0.0",
+      "category": "cashflow",
+      "status": "published",
+      "published_at": "2026-04-22T01:44:21.559225+00:00",
+      "formulas_used": [
+        "saldo_acumulado",
+        "egresos_totales"
+      ],
+      "tags": [
+        "clientes",
+        "cuentas_corrientes",
+        "deudas",
+        "cobros"
       ],
       "compatible_with": [
         "excel",

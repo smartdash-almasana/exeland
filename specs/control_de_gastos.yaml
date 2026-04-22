@@ -86,22 +86,22 @@ sheets:
         formula_ref: "egresos_totales"
         bindings:
           costos_fijos: "SUM(GASTOS!C5:C7)"
-          costo_variable_unitario: 0
-          unidades_vendidas: 1
+          costo_variable_unitario: "0"
+          unidades_vendidas: "1"
 
       - id: "total_gastos_variables"
         formula_ref: "egresos_totales"
         bindings:
           costos_fijos: "SUM(GASTOS!C9:C11)"
-          costo_variable_unitario: 0
-          unidades_vendidas: 1
+          costo_variable_unitario: "0"
+          unidades_vendidas: "1"
 
       - id: "total_gastos"
         formula_ref: "egresos_totales"
         bindings:
           costos_fijos: "MOTOR!C2 + MOTOR!C3"
-          costo_variable_unitario: 0
-          unidades_vendidas: 1
+          costo_variable_unitario: "0"
+          unidades_vendidas: "1"
 
       - id: "desvio_presupuesto"
         formula_ref: "resultado_neto"

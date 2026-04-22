@@ -37,13 +37,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DIST = REPO_ROOT / "dist_static"
 
-# Productos publicables (excluye auto_* generados por el NL compiler)
-PUBLISHED_SLUGS = [
-    "caja_diaria",
-    "precio_margen",
-    "stock_control",
-    "punto_equilibrio",
-]
+TEMPLATES_SRC = REPO_ROOT / "warehouse" / "templates"
 
 
 def clean(dist: Path) -> None:
@@ -79,10 +73,8 @@ def verify_sources() -> list[str]:
         if not path.exists():
             errors.append(f"Falta: {path.relative_to(REPO_ROOT)}")
 
-    for slug in PUBLISHED_SLUGS:
-        xlsx = REPO_ROOT / "warehouse" / "templates" / f"{slug}.xlsx"
-        if not xlsx.exists():
-            errors.append(f"Falta xlsx: warehouse/templates/{slug}.xlsx")
+    if not any(TEMPLATES_SRC.glob("*.xlsx")):
+        errors.append("No hay archivos .xlsx en warehouse/templates/. Ejecutá publish-all primero.")
 
     return errors
 
@@ -105,12 +97,11 @@ def build(dist: Path) -> None:
         dist / "warehouse" / "manifest.json",
     )
 
-    # 5. warehouse/templates/ — solo los 4 productos publicados
+    # 5. warehouse/templates/ — todos los .xlsx publicados
     templates_dst = dist / "warehouse" / "templates"
     templates_dst.mkdir(parents=True, exist_ok=True)
-    for slug in PUBLISHED_SLUGS:
-        src = REPO_ROOT / "warehouse" / "templates" / f"{slug}.xlsx"
-        copy_file(src, templates_dst / f"{slug}.xlsx")
+    for src in sorted(TEMPLATES_SRC.glob("*.xlsx")):
+        copy_file(src, templates_dst / src.name)
 
     print(f"\n✅  dist_static listo en: {dist}")
     print(f"\n▶  Para probar localmente:")
