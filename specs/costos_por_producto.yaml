@@ -1,0 +1,111 @@
+slug: costos_por_producto
+title: "Costos por Producto"
+subtitle: "Calculá el costo real de cada uno de tus productos"
+version: "1.0.0"
+price_ars: 4200
+category: pricing
+tags: [costos, producto, cogs, materia_prima]
+
+branding:
+  primary_color: "#1A3C5E"
+  secondary_color: "#D32F2F"
+  accent_color: "#FBC02D"
+
+sheets:
+  - name: BIENVENIDA
+    type: welcome
+    protected: true
+
+  - name: COSTOS
+    type: input
+    protected: false
+    fields:
+      - id: nombre_producto
+        label: "Nombre del Producto"
+        row: 5
+        col: 2
+        input_type: text
+        example: "Producto Ejemplo"
+        required: true
+
+      - id: costo_materia_prima
+        label: "Costo Materia Prima / Insumos (por unidad)"
+        row: 7
+        col: 2
+        input_type: currency
+        default: 0
+        validation: non_negative_number
+        required: true
+
+      - id: costo_mano_obra_directa
+        label: "Costo Mano de Obra Directa (por unidad)"
+        row: 8
+        col: 2
+        input_type: currency
+        default: 0
+        validation: non_negative_number
+        required: true
+        hint: "Costo de producción específico de esta unidad."
+
+      - id: costos_indirectos_fabricacion
+        label: "Costos Indirectos de Fabricación (por unidad)"
+        row: 9
+        col: 2
+        input_type: currency
+        default: 0
+        validation: non_negative_number
+        hint: "Ej: prorrateo de alquiler, luz de fábrica."
+
+      - id: costo_envio_unitario
+        label: "Costo de Envío (por unidad)"
+        row: 11
+        col: 2
+        input_type: currency
+        default: 0
+        validation: non_negative_number
+
+      - id: comision_venta_porcentaje
+        label: "Comisión de Venta (%)"
+        row: 12
+        col: 2
+        input_type: percentage
+        default: 0
+        validation: percentage_0_1
+        hint: "Ej: 0.15 para 15% de comisión de marketplace."
+
+  - name: MOTOR
+    type: engine
+    protected: true
+    hidden: true
+    formulas:
+      - id: costo_produccion_unitario
+        formula_ref: egresos_totales
+        bindings:
+          costos_fijos: "SUM(COSTOS!C7:C9)"
+          costo_variable_unitario: "0"
+          unidades_vendidas: "1"
+
+      - id: comision_venta_abs
+        formula_ref: ingresos_totales # Reusado para multiplicar
+        bindings:
+          precio_venta: "MOTOR!C4" # Depende del precio de venta sugerido
+          unidades_vendidas: "COSTOS!C12"
+
+      - id: costo_total_unitario
+        formula_ref: egresos_totales
+        bindings:
+          costos_fijos: "MOTOR!C2 + COSTOS!C11 + MOTOR!C3"
+          costo_variable_unitario: "0"
+          unidades_vendidas: "1"
+
+  - name: DASHBOARD
+    type: dashboard
+    protected: true
+
+  - name: GUIA
+    type: guide
+    protected: true
+
+formulas:
+  - egresos_totales
+  - ingresos_totales

@@ -1,0 +1,77 @@
+slug: proyeccion_ventas
+title: "Proyección de Ventas"
+subtitle: "Estimá tus ventas futuras basado en datos históricos y estacionalidad"
+version: "1.0.0"
+price_ars: 5300
+category: "financial"
+tags: ["ventas", "proyeccion", "futuro", "forecast", "ingresos"]
+
+branding:
+  primary_color: "#1A3C5E"
+  secondary_color: "#2E7D32"
+  accent_color: "#FFB300"
+
+sheets:
+  - name: "BIENVENIDA"
+    type: "welcome"
+    protected: true
+
+  - name: "PROYECCION"
+    type: "input"
+    protected: false
+    fields:
+      - {id: "ventas_mes_anterior", label: "Ventas del Mes Anterior (ARS)", row: 5, col: 2, input_type: "currency", default: 0, validation: "non_negative_number", required: true}
+      - {id: "crecimiento_mensual_esperado", label: "Crecimiento Mensual Esperado (%)", row: 6, col: 2, input_type: "percentage", default: 0.10, validation: "percentage_0_1", required: true, hint: "Ej: 0.10 para un 10% de crecimiento"}
+      
+      - {id: "factor_estacional_m1", label: "Factor Estacional Mes 1 (%)", row: 8, col: 2, input_type: "percentage", default: 1, validation: "non_negative_number", hint: "1=normal, 1.2=20% más, 0.8=20% menos"}
+      - {id: "factor_estacional_m2", label: "Factor Estacional Mes 2 (%)", row: 9, col: 2, input_type: "percentage", default: 1, validation: "non_negative_number"}
+      - {id: "factor_estacional_m3", label: "Factor Estacional Mes 3 (%)", row: 10, col: 2, input_type: "percentage", default: 1, validation: "non_negative_number"}
+
+  - name: "MOTOR"
+    type: "engine"
+    protected: true
+    hidden: true
+    formulas:
+      - id: "base_proyeccion_m1"
+        formula_ref: "ingresos_totales"
+        bindings:
+          precio_venta: "PROYECCION!C5"
+          unidades_vendidas: "(1+PROYECCION!C6)"
+      - id: "venta_proyectada_m1"
+        formula_ref: "ingresos_totales"
+        bindings:
+          precio_venta: "MOTOR!C2"
+          unidades_vendidas: "PROYECCION!C8"
+
+      - id: "base_proyeccion_m2"
+        formula_ref: "ingresos_totales"
+        bindings:
+          precio_venta: "MOTOR!C2"
+          unidades_vendidas: "(1+PROYECCION!C6)"
+      - id: "venta_proyectada_m2"
+        formula_ref: "ingresos_totales"
+        bindings:
+          precio_venta: "MOTOR!C4"
+          unidades_vendidas: "PROYECCION!C9"
+
+      - id: "base_proyeccion_m3"
+        formula_ref: "ingresos_totales"
+        bindings:
+          precio_venta: "MOTOR!C4"
+          unidades_vendidas: "(1+PROYECCION!C6)"
+      - id: "venta_proyectada_m3"
+        formula_ref: "ingresos_totales"
+        bindings:
+          precio_venta: "MOTOR!C6"
+          unidades_vendidas: "PROYECCION!C10"
+
+  - name: "DASHBOARD"
+    type: "dashboard"
+    protected: true
+
+  - name: "GUIA"
+    type: "guide"
+    protected: true
+
+formulas:
+  - "ingresos_totales"

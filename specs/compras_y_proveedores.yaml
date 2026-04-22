@@ -1,0 +1,67 @@
+slug: compras_y_proveedores
+title: "Compras y Proveedores"
+subtitle: "Gestioná tus órdenes de compra y el rendimiento de tus proveedores"
+version: "1.0.0"
+price_ars: 4900
+category: "stock"
+tags: ["compras", "proveedores", "ordenes", "stock", "costos"]
+
+branding:
+  primary_color: "#1A3C5E"
+  secondary_color: "#455A64"
+  accent_color: "#FF7043"
+
+sheets:
+  - name: "BIENVENIDA"
+    type: "welcome"
+    protected: true
+
+  - name: "COMPRAS"
+    type: "input"
+    protected: false
+    fields:
+      - {id: "prov1_nombre", label: "Proveedor 1: Nombre", row: 5, col: 2, input_type: "text", example: "Proveedor A"}
+      - {id: "prov1_producto", label: "P1: Producto Comprado", row: 6, col: 2, input_type: "text", example: "Insumo X"}
+      - {id: "prov1_costo", label: "P1: Costo Total Orden", row: 7, col: 2, input_type: "currency", default: 0, validation: "non_negative_number"}
+      - {id: "prov1_fecha_entrega", label: "P1: Días de Entrega", row: 8, col: 2, input_type: "integer", default: 0, validation: "integer_non_negative", hint: "Días que tarda en entregar."}
+
+      - {id: "prov2_nombre", label: "Proveedor 2: Nombre", row: 10, col: 2, input_type: "text", example: "Proveedor B"}
+      - {id: "prov2_producto", label: "P2: Producto Comprado", row: 11, col: 2, input_type: "text", example: "Insumo Y"}
+      - {id: "prov2_costo", label: "P2: Costo Total Orden", row: 12, col: 2, input_type: "currency", default: 0, validation: "non_negative_number"}
+      - {id: "prov2_fecha_entrega", label: "P2: Días de Entrega", row: 13, col: 2, input_type: "integer", default: 0, validation: "integer_non_negative"}
+
+      - {id: "prov3_nombre", label: "Proveedor 3: Nombre", row: 15, col: 2, input_type: "text", example: "Proveedor C"}
+      - {id: "prov3_producto", label: "P3: Producto Comprado", row: 16, col: 2, input_type: "text", example: "Insumo Z"}
+      - {id: "prov3_costo", label: "P3: Costo Total Orden", row: 17, col: 2, input_type: "currency", default: 0, validation: "non_negative_number"}
+      - {id: "prov3_fecha_entrega", label: "P3: Días de Entrega", row: 18, col: 2, input_type: "integer", default: 0, validation: "integer_non_negative"}
+
+  - name: "MOTOR"
+    type: "engine"
+    protected: true
+    hidden: true
+    formulas:
+      - id: "total_compras"
+        formula_ref: "egresos_totales"
+        bindings:
+          costos_fijos: "SUM(COMPRAS!C7, COMPRAS!C12, COMPRAS!C17)"
+          costo_variable_unitario: 0
+          unidades_vendidas: 1
+      - id: "tiempo_promedio_entrega"
+        formula_ref: "costo_reposicion_promedio" # Reusado para promedio ponderado
+        bindings:
+          stock_actual: "COMPRAS!C7+COMPRAS!C12"
+          costo_actual: "(COMPRAS!C8+COMPRAS!C13)/2" # Simulación de promedio
+          unidades_nuevas: "COMPRAS!C17"
+          costo_nuevo: "COMPRAS!C18"
+
+  - name: "DASHBOARD"
+    type: "dashboard"
+    protected: true
+
+  - name: "GUIA"
+    type: "guide"
+    protected: true
+
+formulas:
+  - "egresos_totales"
+  - "costo_reposicion_promedio"

@@ -1,0 +1,66 @@
+slug: cuentas_corrientes_clientes
+title: "Cuentas Corrientes Clientes"
+subtitle: "Seguimiento de saldos y deudas de tus clientes"
+version: "1.0.0"
+price_ars: 5100
+category: "cashflow"
+tags: ["clientes", "cta cte", "deudas", "cobros", "saldos"]
+
+branding:
+  primary_color: "#1A3C5E"
+  secondary_color: "#00796B"
+  accent_color: "#FF8F00"
+
+sheets:
+  - name: "BIENVENIDA"
+    type: "welcome"
+    protected: true
+
+  - name: "CLIENTES"
+    type: "input"
+    protected: false
+    fields:
+      - {id: "cli1_nombre", label: "Cliente 1: Nombre", row: 5, col: 2, input_type: "text", example: "Cliente A"}
+      - {id: "cli1_saldo_anterior", label: "C1: Saldo Anterior", row: 6, col: 2, input_type: "currency", default: 0, validation: "non_negative_number", hint: "Deuda que ya tenía."}
+      - {id: "cli1_nueva_venta", label: "C1: Nueva Venta (a crédito)", row: 7, col: 2, input_type: "currency", default: 0, validation: "non_negative_number"}
+      - {id: "cli1_pago_recibido", label: "C1: Pago Recibido", row: 8, col: 2, input_type: "currency", default: 0, validation: "non_negative_number"}
+
+      - {id: "cli2_nombre", label: "Cliente 2: Nombre", row: 10, col: 2, input_type: "text", example: "Cliente B"}
+      - {id: "cli2_saldo_anterior", label: "C2: Saldo Anterior", row: 11, col: 2, input_type: "currency", default: 0, validation: "non_negative_number"}
+      - {id: "cli2_nueva_venta", label: "C2: Nueva Venta (a crédito)", row: 12, col: 2, input_type: "currency", default: 0, validation: "non_negative_number"}
+      - {id: "cli2_pago_recibido", label: "C2: Pago Recibido", row: 13, col: 2, input_type: "currency", default: 0, validation: "non_negative_number"}
+
+      - {id: "cli3_nombre", label: "Cliente 3: Nombre", row: 15, col: 2, input_type: "text", example: "Cliente C"}
+      - {id: "cli3_saldo_anterior", label: "C3: Saldo Anterior", row: 16, col: 2, input_type: "currency", default: 0, validation: "non_negative_number"}
+      - {id: "cli3_nueva_venta", label: "C3: Nueva Venta (a crédito)", row: 17, col: 2, input_type: "currency", default: 0, validation: "non_negative_number"}
+      - {id: "cli3_pago_recibido", label: "C3: Pago Recibido", row: 18, col: 2, input_type: "currency", default: 0, validation: "non_negative_number"}
+
+  - name: "MOTOR"
+    type: "engine"
+    protected: true
+    hidden: true
+    formulas:
+      # Cliente 1
+      - {id: "cli1_saldo_nuevo", formula_ref: "saldo_acumulado", bindings: {saldo_anterior: "CLIENTES!C6+CLIENTES!C7", flujo_neto: "-CLIENTES!C8"}}
+
+      # Cliente 2
+      - {id: "cli2_saldo_nuevo", formula_ref: "saldo_acumulado", bindings: {saldo_anterior: "CLIENTES!C11+CLIENTES!C12", flujo_neto: "-CLIENTES!C13"}}
+
+      # Cliente 3
+      - {id: "cli3_saldo_nuevo", formula_ref: "saldo_acumulado", bindings: {saldo_anterior: "CLIENTES!C16+CLIENTES!C17", flujo_neto: "-CLIENTES!C18"}}
+
+      # Totales
+      - {id: "total_deuda_anterior", formula_ref: "egresos_totales", bindings: {costos_fijos: "SUM(CLIENTES!C6,CLIENTES!C11,CLIENTES!C16)", costo_variable_unitario: 0, unidades_vendidas: 1}}
+      - {id: "total_deuda_actual", formula_ref: "egresos_totales", bindings: {costos_fijos: "SUM(MOTOR!C2,MOTOR!C3,MOTOR!C4)", costo_variable_unitario: 0, unidades_vendidas: 1}}
+
+  - name: "DASHBOARD"
+    type: "dashboard"
+    protected: true
+
+  - name: "GUIA"
+    type: "guide"
+    protected: true
+
+formulas:
+  - "saldo_acumulado"
+  - "egresos_totales"

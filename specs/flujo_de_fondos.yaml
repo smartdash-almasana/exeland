@@ -1,0 +1,155 @@
+slug: flujo_de_fondos
+title: "Flujo de Fondos Proyectado"
+subtitle: "Proyectá tus ingresos y egresos para anticipar tu saldo de caja"
+version: "1.0.0"
+price_ars: 5200
+category: cashflow
+tags: [flujo, fondos, proyeccion, caja, futuro]
+
+branding:
+  primary_color: "#1A3C5E"
+  secondary_color: "#0288D1"
+  accent_color: "#FFA000"
+
+sheets:
+  - name: BIENVENIDA
+    type: welcome
+    protected: true
+
+  - name: PROYECCION
+    type: input
+    protected: false
+    fields:
+      - id: saldo_inicial_caja
+        label: "Saldo Inicial de Caja (ARS)"
+        row: 5
+        col: 2
+        input_type: currency
+        default: 0
+        validation: non_negative_number
+        required: true
+
+      - id: ingresos_proyectados_s1
+        label: "Ingresos Proyectados (Semana 1)"
+        row: 7
+        col: 2
+        input_type: currency
+        default: 0
+        validation: non_negative_number
+
+      - id: egresos_proyectados_s1
+        label: "Egresos Proyectados (Semana 1)"
+        row: 8
+        col: 2
+        input_type: currency
+        default: 0
+        validation: non_negative_number
+
+      - id: ingresos_proyectados_s2
+        label: "Ingresos Proyectados (Semana 2)"
+        row: 10
+        col: 2
+        input_type: currency
+        default: 0
+        validation: non_negative_number
+
+      - id: egresos_proyectados_s2
+        label: "Egresos Proyectados (Semana 2)"
+        row: 11
+        col: 2
+        input_type: currency
+        default: 0
+        validation: non_negative_number
+
+      - id: ingresos_proyectados_s3
+        label: "Ingresos Proyectados (Semana 3)"
+        row: 13
+        col: 2
+        input_type: currency
+        default: 0
+        validation: non_negative_number
+
+      - id: egresos_proyectados_s3
+        label: "Egresos Proyectados (Semana 3)"
+        row: 14
+        col: 2
+        input_type: currency
+        default: 0
+        validation: non_negative_number
+
+      - id: ingresos_proyectados_s4
+        label: "Ingresos Proyectados (Semana 4)"
+        row: 16
+        col: 2
+        input_type: currency
+        default: 0
+        validation: non_negative_number
+
+      - id: egresos_proyectados_s4
+        label: "Egresos Proyectados (Semana 4)"
+        row: 17
+        col: 2
+        input_type: currency
+        default: 0
+        validation: non_negative_number
+
+  - name: MOTOR
+    type: engine
+    protected: true
+    hidden: true
+    formulas:
+      - id: flujo_neto_s1
+        formula_ref: flujo_caja_neto
+        bindings:
+          ingresos: "PROYECCION!C7"
+          egresos: "PROYECCION!C8"
+      - id: saldo_final_s1
+        formula_ref: saldo_acumulado
+        bindings:
+          saldo_anterior: "PROYECCION!C5"
+          flujo_neto: "MOTOR!C2"
+
+      - id: flujo_neto_s2
+        formula_ref: flujo_caja_neto
+        bindings:
+          ingresos: "PROYECCION!C10"
+          egresos: "PROYECCION!C11"
+      - id: saldo_final_s2
+        formula_ref: saldo_acumulado
+        bindings:
+          saldo_anterior: "MOTOR!C3"
+          flujo_neto: "MOTOR!C4"
+
+      - id: flujo_neto_s3
+        formula_ref: flujo_caja_neto
+        bindings:
+          ingresos: "PROYECCION!C13"
+          egresos: "PROYECCION!C14"
+      - id: saldo_final_s3
+        formula_ref: saldo_acumulado
+        bindings:
+          saldo_anterior: "MOTOR!C5"
+          flujo_neto: "MOTOR!C6"
+
+      - id: flujo_neto_s4
+        formula_ref: flujo_caja_neto
+        bindings:
+          ingresos: "PROYECCION!C16"
+          egresos: "PROYECCION!C17"
+      - id: saldo_final_s4
+        formula_ref: saldo_acumulado
+        bindings:
+          saldo_anterior: "MOTOR!C7"
+          flujo_neto: "MOTOR!C8"
+
+  - name: DASHBOARD
+    type: dashboard
+    protected: true
+
+  - name: GUIA
+    type: guide
+    protected: true
+
+formulas:
+  - flujo_caja_neto
+  - saldo_acumulado

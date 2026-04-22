@@ -1,0 +1,55 @@
+slug: simulador_inflacion
+title: "Simulador de Inflación"
+subtitle: "Proyectá cómo la inflación afecta tus precios y costos"
+version: "1.0.0"
+price_ars: 5800
+category: "financial"
+tags: ["inflacion", "proyeccion", "precios", "costos", "futuro"]
+
+branding:
+  primary_color: "#1A3C5E"
+  secondary_color: "#AD1457"
+  accent_color: "#FFC107"
+
+sheets:
+  - name: "BIENVENIDA"
+    type: "welcome"
+    protected: true
+
+  - name: "SIMULADOR"
+    type: "input"
+    protected: false
+    fields:
+      - {id: "precio_actual", label: "Precio de Venta Actual", row: 5, col: 2, input_type: "currency", default: 1000, validation: "positive_number", required: true}
+      - {id: "costo_actual", label: "Costo Unitario Actual", row: 6, col: 2, input_type: "currency", default: 500, validation: "non_negative_number", required: true}
+
+      - {id: "inflacion_mensual_proyectada", label: "Inflación Mensual Proyectada (%)", row: 8, col: 2, input_type: "percentage", default: 0.05, validation: "percentage_0_1", required: true, hint: "Ej: 0.05 para 5% mensual"}
+
+      - {id: "meses_a_proyectar", label: "Meses a Proyectar", row: 9, col: 2, input_type: "integer", default: 6, validation: "integer_positive", required: true}
+
+  - name: "MOTOR"
+    type: "engine"
+    protected: true
+    hidden: true
+    formulas:
+      # Mes 1
+      - {id: "precio_m1", formula_ref: "ingresos_totales", bindings: {precio_venta: "SIMULADOR!C5", unidades_vendidas: "(1+SIMULADOR!C8)"}}
+      - {id: "costo_m1", formula_ref: "ingresos_totales", bindings: {precio_venta: "SIMULADOR!C6", unidades_vendidas: "(1+SIMULADOR!C8)"}}
+      - {id: "margen_m1", formula_ref: "margen_bruto", bindings: {precio_venta: "MOTOR!C2", costo_unitario: "MOTOR!C3"}}
+
+      # Mes 2 (acumulativo)
+      - {id: "precio_m2", formula_ref: "ingresos_totales", bindings: {precio_venta: "MOTOR!C2", unidades_vendidas: "(1+SIMULADOR!C8)"}}
+      - {id: "costo_m2", formula_ref: "ingresos_totales", bindings: {precio_venta: "MOTOR!C3", unidades_vendidas: "(1+SIMULADOR!C8)"}}
+      - {id: "margen_m2", formula_ref: "margen_bruto", bindings: {precio_venta: "MOTOR!C5", costo_unitario: "MOTOR!C6"}}
+
+  - name: "DASHBOARD"
+    type: "dashboard"
+    protected: true
+
+  - name: "GUIA"
+    type: "guide"
+    protected: true
+
+formulas:
+  - "ingresos_totales"
+  - "margen_bruto"
