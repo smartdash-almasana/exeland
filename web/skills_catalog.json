@@ -1,23 +1,32 @@
 [
   {
-    "name": "precios_y_rentabilidad",
-    "category": "pricing",
-    "description": "Calculá el precio de venta ideal a partir del costo y margen deseado.",
+    "name": "caja_diaria",
+    "category": "cashflow",
+    "description": "Control total de tus ingresos y egresos diarios.",
     "formulas": [
-      "precio_con_margen"
+      "ingresos_totales",
+      "egresos_totales"
     ],
-    "preview_text": "Ingresás costo y margen → obtenés el precio de venta óptimo.",
-    "use_case": "Ideal para negocios que quieren fijar precios con margen controlado."
+    "preview_text": "Resumen de saldos, alertas de faltantes y flujo de caja.",
+    "use_case": "Ideal para comercios y pequeños negocios."
   },
   {
-    "name": "caja_y_flujo",
-    "category": "cashflow",
-    "description": "Registrá ingresos y egresos del período y calculá el flujo neto y saldo final.",
+    "name": "precio_margen",
+    "category": "pricing",
+    "description": "Determiná el precio ideal para tus productos.",
     "formulas": [
-      "flujo_caja_neto",
-      "saldo_acumulado"
+      "precio_venta_con_margen",
+      "margen_bruto"
     ],
-    "preview_text": "Ingresás ingresos, egresos y saldo inicial → obtenés flujo neto y saldo final.",
-    "use_case": "Ideal para negocios que necesitan controlar su liquidez período a período."
+    "preview_text": "Cálculo de margen bruto, markup y punto de equilibrio por producto.",
+    "use_case": "Ideal para emprendedores que venden productos físicos."
+  },
+  {
+    "name": "conciliador_bancario_macro",
+    "category": "finanzas",
+    "description": "Cruza movimientos internos contra extracto bancario automáticamente.",
+    "formulas": [],
+    "preview_text": "Detección de diferencias, conciliación por monto y fecha.",
+    "use_case": "Ideal para administración y contabilidad mensual."
   }
 ]
