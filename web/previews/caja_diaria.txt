@@ -1,4 +1,0 @@
-NAME: Caja Diaria Pro
-DESCRIPTION: Control total de tus ingresos y egresos diarios.
-PREVIEW: Resumen de saldos, alertas de faltantes y flujo de caja.
-USE CASE: Ideal para comercios y pequeños negocios.

@@ -1,4 +1,0 @@
-NAME: Conciliador Bancario
-DESCRIPTION: Cruza movimientos internos contra extracto bancario automáticamente.
-PREVIEW: Detección de diferencias, conciliación por monto y fecha.
-USE CASE: Ideal para administración y contabilidad mensual.

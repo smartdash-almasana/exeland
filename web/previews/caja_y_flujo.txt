@@ -1,4 +1,0 @@
-NAME: caja_y_flujo
-DESCRIPTION: control de ingresos y egresos
-PREVIEW: ves flujo neto y saldo final
-USE CASE: control diario de caja
