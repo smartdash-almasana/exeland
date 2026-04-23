@@ -108,6 +108,19 @@ sheets:
   - name: DASHBOARD
     type: dashboard
     protected: true
+    kpis:
+      - label: "Punto equilibrio (uds)"
+        ref: "MOTOR!C1"
+        style: "kpi_warning"
+      - label: "Margen bruto %"
+        ref: "MOTOR!C2"
+        style: "kpi_neutral"
+      - label: "Punto equilibrio ($)"
+        ref: "MOTOR!C3"
+        style: "kpi_warning"
+      - label: "Resultado neto"
+        ref: "MOTOR!C6"
+        style: "kpi_neutral"
 
   - name: GUIA
     type: guide

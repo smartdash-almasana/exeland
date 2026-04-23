@@ -127,6 +127,19 @@ sheets:
   - name: DASHBOARD
     type: dashboard
     protected: true
+    kpis:
+      - label: "Alerta stock mínimo"
+        ref: "MOTOR!C1"
+        style: "kpi_warning"
+      - label: "Días de stock restante"
+        ref: "MOTOR!C2"
+        style: "kpi_neutral"
+      - label: "Costo reposición promedio"
+        ref: "MOTOR!C3"
+        style: "kpi_positive"
+      - label: "Rotación inventario"
+        ref: "MOTOR!C4"
+        style: "kpi_neutral"
 
   - name: GUIA
     type: guide

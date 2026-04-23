@@ -135,6 +135,19 @@ sheets:
   - name: DASHBOARD
     type: dashboard
     protected: true
+    kpis:
+      - label: "Ingresos totales"
+        ref: "MOTOR!C2"
+        style: "kpi_positive"
+      - label: "Egresos totales"
+        ref: "MOTOR!C3"
+        style: "kpi_negative"
+      - label: "Flujo neto"
+        ref: "MOTOR!C4"
+        style: "kpi_neutral"
+      - label: "Saldo acumulado"
+        ref: "MOTOR!C5"
+        style: "kpi_warning"
 
   - name: GUIA
     type: guide

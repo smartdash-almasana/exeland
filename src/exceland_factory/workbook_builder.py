@@ -15,6 +15,7 @@ from exceland_factory.layouts import (
     build_welcome_sheet,
 )
 from exceland_factory.models import BuildResult, ProductSpec, SheetType
+from exceland_factory.postprocess import apply_validations
 from exceland_factory.style_system import build_styles
 
 
@@ -65,7 +66,7 @@ def build_workbook(spec: ProductSpec, output_path: Path | None = None) -> BuildR
                     ws.hide()
 
             elif sheet_spec.type == SheetType.dashboard:
-                build_dashboard_sheet(wb, ws, spec, styles)
+                build_dashboard_sheet(wb, ws, spec, styles, sheet_spec)
 
             elif sheet_spec.type == SheetType.guide:
                 build_guide_sheet(wb, ws, spec, styles)
@@ -83,6 +84,22 @@ def build_workbook(spec: ProductSpec, output_path: Path | None = None) -> BuildR
                 )
 
         wb.close()
+
+        # Postprocess: aplica DataValidation con openpyxl sobre el xlsx ya cerrado.
+        # Solo se ejecuta si alguna hoja de input tiene campos con validación definida.
+        # Soporta tanto fields (legacy) como inputs (v2).
+        _has_validations = any(
+            fspec.validation
+            for sheet in spec.sheets
+            for fspec in sheet.fields
+        ) or any(
+            inp.validation
+            for sheet in spec.sheets
+            for inp in sheet.inputs
+        )
+        if _has_validations:
+            apply_validations(spec, output_path)
+
         return BuildResult(slug=spec.slug, output_path=str(output_path), success=True)
 
     except Exception as exc:

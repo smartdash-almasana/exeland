@@ -109,6 +109,19 @@ sheets:
   - name: DASHBOARD
     type: dashboard
     protected: true
+    kpis:
+      - label: "Precio de venta"
+        ref: "MOTOR!C1"
+        style: "kpi_positive"
+      - label: "Margen bruto %"
+        ref: "MOTOR!C2"
+        style: "kpi_neutral"
+      - label: "Margen en pesos"
+        ref: "MOTOR!C3"
+        style: "kpi_positive"
+      - label: "Markup"
+        ref: "MOTOR!C4"
+        style: "kpi_neutral"
 
   - name: GUIA
     type: guide
