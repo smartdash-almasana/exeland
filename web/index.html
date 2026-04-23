@@ -84,12 +84,14 @@
   <header class="fixed top-0 inset-x-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur-md shadow-sm">
     <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 h-16 md:h-20 flex items-center justify-between">
       <div class="flex items-center gap-8">
-        <a href="#" class="font-display text-lg md:text-xl font-extrabold tracking-tight text-ink">Exceland</a>
+        <a href="#" class="flex items-center group">
+          <img src="assets/logo/logo.png" alt="Exceland Logo" class="h-10 md:h-12 w-auto" />
+        </a>
 
         <nav class="hidden md:flex items-center gap-6">
-          <a href="#productos" class="font-display text-sm font-semibold text-excel border-b-2 border-excel pb-1">Templates</a>
-          <a href="#automatizaciones" class="font-display text-sm font-semibold text-slate-600 hover:text-ink transition-colors">Automation</a>
-          <a href="#como-funciona" class="font-display text-sm font-semibold text-slate-600 hover:text-ink transition-colors">How it works</a>
+          <a href="#productos" class="font-display text-sm font-semibold text-excel border-b-2 border-excel pb-1">Plantillas</a>
+          <a href="#automatizaciones" class="font-display text-sm font-semibold text-slate-600 hover:text-ink transition-colors">Automatización</a>
+          <a href="#como-funciona" class="font-display text-sm font-semibold text-slate-600 hover:text-ink transition-colors">Cómo funciona</a>
         </nav>
       </div>
 
@@ -97,7 +99,7 @@
         href="#contacto"
         class="inline-flex items-center rounded-lg bg-black text-white px-4 py-2.5 text-sm font-semibold shadow-soft hover:opacity-90 transition"
       >
-        Get a solution
+        Quiero mi solución
       </a>
     </div>
   </header>
@@ -435,7 +437,9 @@
   <footer class="bg-ink text-white w-full pt-16 pb-10 border-t border-slate-800">
     <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
       <div>
-        <span class="text-lg font-bold text-emerald-500 block mb-5">Exceland</span>
+        <div class="flex items-center mb-5">
+          <img src="assets/logo/logo.png" alt="Exceland Logo" class="h-8 w-auto" />
+        </div>
         <p class="font-display text-sm leading-relaxed text-slate-400">
           Plantillas Excel descargables y automatizaciones a medida para resolver problemas reales de negocio.
         </p>
@@ -444,18 +448,18 @@
       <div>
         <h4 class="font-bold mb-5">Soluciones</h4>
         <ul class="space-y-3">
-          <li><a class="text-slate-400 hover:text-white transition-colors text-sm" href="#productos">Templates</a></li>
-          <li><a class="text-slate-400 hover:text-white transition-colors text-sm" href="#automatizaciones">Automation</a></li>
-          <li><a class="text-slate-400 hover:text-white transition-colors text-sm" href="#productos">Catalog</a></li>
+          <li><a class="text-slate-400 hover:text-white transition-colors text-sm" href="#productos">Plantillas</a></li>
+          <li><a class="text-slate-400 hover:text-white transition-colors text-sm" href="#automatizaciones">Automatización</a></li>
+          <li><a class="text-slate-400 hover:text-white transition-colors text-sm" href="#productos">Catálogo</a></li>
         </ul>
       </div>
 
       <div>
         <h4 class="font-bold mb-5">Soporte</h4>
         <ul class="space-y-3">
-          <li><a class="text-slate-400 hover:text-white transition-colors text-sm" href="#contacto">Contact</a></li>
-          <li><a class="text-slate-400 hover:text-white transition-colors text-sm" href="#faq">FAQ</a></li>
-          <li><a class="text-slate-400 hover:text-white transition-colors text-sm" href="#como-funciona">How it works</a></li>
+          <li><a class="text-slate-400 hover:text-white transition-colors text-sm" href="#contacto">Contacto</a></li>
+          <li><a class="text-slate-400 hover:text-white transition-colors text-sm" href="#faq">Preguntas Frecuentes</a></li>
+          <li><a class="text-slate-400 hover:text-white transition-colors text-sm" href="#como-funciona">Cómo funciona</a></li>
         </ul>
       </div>
 
@@ -508,44 +512,24 @@
       const grid = document.getElementById("products-grid");
 
       try {
-        const response = await fetch("./skills.json");
+        // Detectar si index.html está siendo servido desde dentro de /web/
+        const inWebFolder = window.location.pathname.includes("/web/");
+        const basePath = inWebFolder ? ".." : ".";
+
+        const response = await fetch(`${basePath}/skills.json`);
         if (!response.ok) throw new Error("No se pudo cargar skills.json");
         const skills = await response.json();
 
         const cards = await Promise.all(
           skills.map(async (skill) => {
-            let previewText = "";
-
-            try {
-              const previewRes = await fetch(`./previews/${skill.preview}`);
-              if (previewRes.ok) previewText = await previewRes.text();
-            } catch (_) {
-              previewText = "";
-            }
-
-            const lines = previewText
-              .split("\n")
-              .map((line) => line.trim())
-              .filter(Boolean);
-
-            const parsed = {};
-            lines.forEach((line) => {
-              const idx = line.indexOf(":");
-              if (idx > -1) {
-                const key = line.slice(0, idx).trim().toUpperCase();
-                const value = line.slice(idx + 1).trim();
-                parsed[key] = value;
-              }
-            });
-
-            const title = (parsed.NAME || skill.name || "").replaceAll("_", " ");
+            const title = (skill.name || "").replaceAll("_", " ");
             const description =
-              parsed.DESCRIPTION ||
+              skill.description ||
               "Plantilla lista para usar. Cargás datos y ves resultados al instante.";
             const preview =
-              parsed.PREVIEW || "Herramienta lista para usar.";
+              skill.preview_text || "Herramienta lista para usar.";
             const useCase =
-              parsed["USE CASE"] || "Aplicación práctica para negocio.";
+              skill.use_case || "Aplicación práctica para negocio.";
             const hasMacros = skill.has_macros === true;
             const badge = hasMacros ? "Excel con Macros" : "Plantilla descargable";
             const secondaryText = hasMacros

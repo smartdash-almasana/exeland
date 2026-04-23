@@ -85,6 +85,11 @@ def build(dist: Path) -> None:
     # 1. index.html
     copy_file(REPO_ROOT / "web" / "index.html", dist / "index.html")
 
+    # 2. skills.json
+    skills_json = REPO_ROOT / "web" / "skills.json"
+    if skills_json.exists():
+        copy_file(skills_json, dist / "skills.json")
+
     # 2. scripts/
     copy_dir(REPO_ROOT / "web" / "scripts", dist / "scripts")
 
