@@ -207,6 +207,7 @@
     </div>
   </section>
 
+  <!-- SECCIÓN: DESTACADAS -->
   <section id="productos" class="py-20 md:py-24 bg-bg">
     <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10">
@@ -218,29 +219,60 @@
             Soluciones plug-and-play diseñadas por expertos en procesos.
           </p>
         </div>
+      </div>
 
-        <div class="hidden sm:flex gap-2">
-          <span class="bg-white border border-slate-200 px-4 py-2 rounded-full text-xs font-semibold">Caja</span>
-          <span class="bg-white border border-slate-200 px-4 py-2 rounded-full text-xs font-semibold">Precios</span>
-          <span class="bg-white border border-slate-200 px-4 py-2 rounded-full text-xs font-semibold">Control</span>
+      <div id="featured-loading" class="rounded-3xl border border-dashed border-slate-300 bg-white p-10 text-center text-slate-500">
+        Cargando catálogo...
+      </div>
+      <div id="featured-error" class="hidden rounded-3xl border border-rose-200 bg-rose-50 p-6 text-rose-700">
+        No se pudo cargar el catálogo.
+      </div>
+      <div id="featured-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+
+      <div class="mt-10 text-center">
+        <a
+          href="#catalogo-completo"
+          class="inline-flex items-center gap-2 rounded-xl border-2 border-navy2 text-navy2 px-8 py-4 font-semibold hover:bg-navy2 hover:text-white transition-all"
+        >
+          Ver más plantillas
+          <span class="material-symbols-outlined text-[18px]">grid_view</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÓN: CATÁLOGO COMPLETO -->
+  <section id="catalogo-completo" class="py-20 md:py-24 bg-white">
+    <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mb-10">
+        <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight text-navy2 mb-2">
+          Catálogo completo
+        </h2>
+        <p class="text-base text-inkSoft">Todas las plantillas disponibles. Filtrá por tema o buscá la tuya.</p>
+      </div>
+
+      <!-- Búsqueda + filtros -->
+      <div class="flex flex-col sm:flex-row gap-4 mb-8">
+        <div class="relative flex-1">
+          <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">search</span>
+          <input
+            id="catalog-search"
+            type="text"
+            placeholder="Buscar plantilla..."
+            class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 bg-panelSoft text-sm focus:outline-none focus:ring-2 focus:ring-excel focus:border-transparent"
+          />
         </div>
       </div>
 
-      <div
-        id="products-loading"
-        class="rounded-3xl border border-dashed border-slate-300 bg-white p-10 text-center text-slate-500"
-      >
-        Cargando catálogo...
-      </div>
+      <div id="catalog-filters" class="flex flex-wrap gap-2 mb-8"></div>
 
-      <div
-        id="products-error"
-        class="hidden rounded-3xl border border-rose-200 bg-rose-50 p-6 text-rose-700"
-      >
-        No se pudo cargar el catálogo.
+      <div id="catalog-loading" class="rounded-3xl border border-dashed border-slate-300 bg-panelSoft p-10 text-center text-slate-500">
+        Cargando plantillas...
       </div>
-
-      <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10"></div>
+      <div id="catalog-empty" class="hidden rounded-3xl border border-slate-200 bg-panelSoft p-10 text-center text-slate-500">
+        No hay plantillas que coincidan con tu búsqueda.
+      </div>
+      <div id="catalog-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </div>
   </section>
 
@@ -491,9 +523,7 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ skill_id })
         });
-
         const data = await res.json();
-
         if (data.init_point) {
           window.location.href = data.init_point;
         } else {
@@ -506,106 +536,184 @@
       }
     }
 
-    async function loadCatalog() {
-      const loading = document.getElementById("products-loading");
-      const error = document.getElementById("products-error");
-      const grid = document.getElementById("products-grid");
+    // ─── helpers ────────────────────────────────────────────────────────────────
+
+    function getBasePath() {
+      return window.location.pathname.includes("/web/") ? ".." : ".";
+    }
+
+    const DIFFICULTY_COLOR = {
+      "Básico":      "bg-emerald-100 text-emerald-700",
+      "Intermedio":  "bg-amber-100 text-amber-700",
+      "Avanzado":    "bg-rose-100 text-rose-700",
+    };
+
+    function buildCard(skill, compact = false) {
+      const base = getBasePath();
+      const isFree = skill.is_free === true;
+      const priceBadge = isFree
+        ? `<span class="bg-emerald-100 text-emerald-700 text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded">Gratis</span>`
+        : `<span class="bg-excel/10 text-excel text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded">${skill.price_label || "Ver precio"}</span>`;
+
+      const diffClass = DIFFICULTY_COLOR[skill.difficulty] || "bg-slate-100 text-slate-600";
+      const diffBadge = `<span class="${diffClass} text-[10px] font-semibold px-2 py-1 rounded">${skill.difficulty || ""}</span>`;
+
+      const features = (skill.features || []).slice(0, 3).map(f =>
+        `<li class="flex items-start text-sm text-slate-700">
+          <span class="material-symbols-outlined text-excel text-[16px] mr-2 mt-0.5 shrink-0">check_circle</span>
+          <span>${f}</span>
+        </li>`
+      ).join("");
+
+      const ctaBtn = isFree
+        ? `<a href="${base}/warehouse/templates/${skill.file}" download
+              class="w-full bg-emerald-600 text-white py-3 rounded-lg font-semibold hover:bg-emerald-700 transition-colors flex items-center justify-center gap-2">
+              Descargar gratis
+              <span class="material-symbols-outlined text-[18px]">download</span>
+            </a>`
+        : `<button onclick="comprar('${skill.slug}')"
+              class="w-full bg-navy2 text-white py-3 rounded-lg font-semibold hover:bg-black transition-colors flex items-center justify-center gap-2">
+              Comprar — ${skill.price_label}
+              <span class="material-symbols-outlined text-[18px]">shopping_cart</span>
+            </button>`;
+
+      const freeBanner = isFree
+        ? `<div class="absolute top-3 right-3 bg-emerald-500 text-white text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-full shadow">Gratis</div>`
+        : "";
+
+      const fallbackImg = "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80";
+      const cover = skill.image || skill.cover || fallbackImg;
+
+      return `
+        <article class="bg-white rounded-3xl overflow-hidden border ${isFree ? "border-emerald-200 ring-1 ring-emerald-200" : "border-slate-100"} hover:shadow-card transition-all group flex flex-col">
+          <div class="relative h-40 overflow-hidden shrink-0">
+            <img src="${cover}" alt="${skill.name}"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              onerror="this.src='${fallbackImg}'" />
+            ${freeBanner}
+          </div>
+          <div class="p-5 flex flex-col flex-1">
+            <div class="flex items-center gap-2 mb-3 flex-wrap">
+              <span class="text-[10px] font-bold uppercase tracking-widest text-inkSoft">${skill.category}</span>
+              ${diffBadge}
+              ${priceBadge}
+            </div>
+            <h3 class="font-display text-lg font-bold tracking-tight text-navy2 mb-2">${skill.name}</h3>
+            <p class="text-sm text-inkSoft leading-6 mb-3">${skill.description}</p>
+            <ul class="space-y-1.5 mb-4 flex-1">
+              ${features}
+            </ul>
+            <p class="text-xs text-slate-400 mb-4">
+              <span class="material-symbols-outlined text-[14px] align-middle mr-1">person</span>
+              ${skill.ideal_for}
+            </p>
+            <div class="flex flex-col gap-2 mt-auto">
+              ${ctaBtn}
+              <a href="#contacto"
+                class="w-full border border-slate-200 text-slate-600 py-2.5 rounded-lg text-sm font-semibold hover:bg-slate-50 transition-colors text-center">
+                Pedir adaptación
+              </a>
+            </div>
+          </div>
+        </article>`;
+    }
+
+    // ─── featured ───────────────────────────────────────────────────────────────
+
+    async function loadFeatured(skills) {
+      const loading = document.getElementById("featured-loading");
+      const error   = document.getElementById("featured-error");
+      const grid    = document.getElementById("featured-grid");
 
       try {
-        // Detectar si index.html está siendo servido desde dentro de /web/
-        const inWebFolder = window.location.pathname.includes("/web/");
-        const basePath = inWebFolder ? ".." : ".";
-
-        const response = await fetch(`${basePath}/skills.json`);
-        if (!response.ok) throw new Error("No se pudo cargar skills.json");
-        const skills = await response.json();
-
-        const cards = await Promise.all(
-          skills.map(async (skill) => {
-            const title = (skill.name || "").replaceAll("_", " ");
-            const description =
-              skill.description ||
-              "Plantilla lista para usar. Cargás datos y ves resultados al instante.";
-            const preview =
-              skill.preview_text || "Herramienta lista para usar.";
-            const useCase =
-              skill.use_case || "Aplicación práctica para negocio.";
-            const hasMacros = skill.has_macros === true;
-            const badge = hasMacros ? "Excel con Macros" : "Plantilla descargable";
-            const secondaryText = hasMacros
-              ? "Incluye automatización con botón dentro de Excel."
-              : "Sin fórmulas complicadas. Todo ya armado.";
-            const ctaText = hasMacros ? "Comprar Excel con macro" : "Descargar ahora";
-
-            const fallbackImage = hasMacros
-              ? "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=1200&q=80"
-              : "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80";
-
-            const cover = skill.image || skill.cover || fallbackImage;
-
-            return `
-              <article class="bg-white rounded-3xl overflow-hidden border border-slate-100 hover:shadow-card transition-all group">
-                <div class="h-48 overflow-hidden">
-                  <img
-                    src="${cover}"
-                    alt="${title}"
-                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    onerror="this.src='${fallbackImage}'"
-                  />
-                </div>
-
-                <div class="p-6">
-                  <span class="bg-excel/10 text-excel text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded mb-4 inline-block">
-                    ${badge}
-                  </span>
-
-                  <h3 class="font-display text-2xl font-bold tracking-tight text-navy2 mb-3 capitalize">
-                    ${title}
-                  </h3>
-
-                  <p class="text-sm text-inkSoft leading-6 mb-4">${description}</p>
-
-                  <ul class="space-y-2 mb-6">
-                    <li class="flex items-start text-sm text-slate-700">
-                      <span class="material-symbols-outlined text-excel text-[18px] mr-2 mt-0.5">check_circle</span>
-                      <span>${preview}</span>
-                    </li>
-                    <li class="flex items-start text-sm text-slate-700">
-                      <span class="material-symbols-outlined text-excel text-[18px] mr-2 mt-0.5">check_circle</span>
-                      <span>${useCase}</span>
-                    </li>
-                  </ul>
-
-                  <p class="text-sm text-slate-500 mb-6">${secondaryText}</p>
-
-                  <div class="flex flex-col gap-3">
-                    <button
-                      onclick="comprar('${skill.name}')"
-                      class="w-full bg-navy2 text-white py-3 rounded-lg font-semibold hover:bg-black transition-colors flex items-center justify-center gap-2"
-                    >
-                      ${ctaText}
-                      <span class="material-symbols-outlined text-[18px]">download</span>
-                    </button>
-
-                    <a
-                      href="#contacto"
-                      class="w-full border border-slate-300 text-slate-800 py-3 rounded-lg font-semibold hover:bg-slate-50 transition-colors text-center"
-                    >
-                      Pedir adaptación
-                    </a>
-                  </div>
-                </div>
-              </article>
-            `;
-          })
-        );
-
-        grid.innerHTML = cards.join("");
+        const featured = skills.filter(s => s.is_featured === true);
+        grid.innerHTML = featured.map(s => buildCard(s, true)).join("");
         loading.classList.add("hidden");
       } catch (err) {
         console.error(err);
         loading.classList.add("hidden");
         error.classList.remove("hidden");
+      }
+    }
+
+    // ─── catalog ────────────────────────────────────────────────────────────────
+
+    let allSkills = [];
+    let activeCategory = "Todas";
+
+    function renderCatalog() {
+      const grid    = document.getElementById("catalog-grid");
+      const empty   = document.getElementById("catalog-empty");
+      const query   = document.getElementById("catalog-search").value.trim().toLowerCase();
+
+      let filtered = allSkills;
+
+      if (activeCategory !== "Todas") {
+        filtered = filtered.filter(s => s.category === activeCategory);
+      }
+
+      if (query) {
+        filtered = filtered.filter(s =>
+          s.name.toLowerCase().includes(query) ||
+          s.description.toLowerCase().includes(query) ||
+          (s.tags || []).some(t => t.toLowerCase().includes(query))
+        );
+      }
+
+      if (filtered.length === 0) {
+        grid.innerHTML = "";
+        empty.classList.remove("hidden");
+      } else {
+        empty.classList.add("hidden");
+        grid.innerHTML = filtered.map(s => buildCard(s)).join("");
+      }
+    }
+
+    function buildFilters(skills) {
+      const container = document.getElementById("catalog-filters");
+      const categories = ["Todas", ...new Set(skills.map(s => s.category))];
+
+      container.innerHTML = categories.map(cat => {
+        const isActive = cat === activeCategory;
+        return `<button
+          data-cat="${cat}"
+          class="filter-btn px-4 py-2 rounded-full text-sm font-semibold border transition-all
+            ${isActive
+              ? "bg-navy2 text-white border-navy2"
+              : "bg-white text-slate-600 border-slate-200 hover:border-navy2 hover:text-navy2"}"
+        >${cat}</button>`;
+      }).join("");
+
+      container.querySelectorAll(".filter-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          activeCategory = btn.dataset.cat;
+          buildFilters(skills);
+          renderCatalog();
+        });
+      });
+    }
+
+    async function loadCatalog() {
+      const loading = document.getElementById("catalog-loading");
+
+      try {
+        const basePath = getBasePath();
+        const response = await fetch(`${basePath}/skills.json`);
+        if (!response.ok) throw new Error("No se pudo cargar skills.json");
+        allSkills = await response.json();
+
+        await loadFeatured(allSkills);
+
+        buildFilters(allSkills);
+        renderCatalog();
+        loading.classList.add("hidden");
+
+        document.getElementById("catalog-search").addEventListener("input", renderCatalog);
+      } catch (err) {
+        console.error(err);
+        loading.classList.add("hidden");
+        document.getElementById("featured-loading").classList.add("hidden");
+        document.getElementById("featured-error").classList.remove("hidden");
       }
     }
 
