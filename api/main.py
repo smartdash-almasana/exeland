@@ -64,7 +64,10 @@ def create_checkout():
         init_point = result.get("response", {}).get("init_point")
 
         if not init_point:
-            return jsonify({"error": "error creando preferencia"}), 500
+            return jsonify({
+                "error": "error creando preferencia",
+                "mp_result": result
+            }), 500
 
         return jsonify({"init_point": init_point})
 
