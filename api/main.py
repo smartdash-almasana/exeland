@@ -7,22 +7,14 @@ import mercadopago
 from flask import Flask, jsonify, request
 
 app = Flask(__name__)
+
 PRODUCT_PRICES: dict[str, float] = {
-    "caja_diaria": 4900,
-    "precio_margen": 3900,
-    "stock_control": 4500,
-    "costos_por_producto": 4200,
-    "flujo_de_fondos": 5200,
-    "rentabilidad_por_producto": 5500,
-    "simulador_inflacion": 5800,
-    "proyeccion_ventas": 5300,
-    "control_de_gastos": 4800,
-    "compras_y_proveedores": 4900,
-    "cuentas_corrientes_clientes": 5100,
+    "precios_y_rentabilidad": 3000,
+    "caja_y_flujo": 3000,
     "conciliador_bancario_macro": 3000,
 }
 
-BASE_URL = os.environ.get("BASE_URL", "https://exceland.vercel.app")
+BASE_URL = os.environ.get("BASE_URL", "https://exceland.web.app")
 
 
 @app.after_request
@@ -56,7 +48,7 @@ def create_checkout():
         preference_data = {
             "items": [
                 {
-                    "title": skill_id.replace("_", " ").title(),
+                    "title": skill_id,
                     "quantity": 1,
                     "currency_id": "ARS",
                     "unit_price": PRODUCT_PRICES[skill_id],
@@ -67,7 +59,6 @@ def create_checkout():
                 "failure": f"{BASE_URL}/error.html",
             },
         }
-
 
         result = sdk.preference().create(preference_data)
         init_point = result.get("response", {}).get("init_point")
