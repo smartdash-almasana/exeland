@@ -1,4 +1,24 @@
-const WHATSAPP_URL = 'https://wa.me/5491100000000?text=Hola%20Exceland,%20quiero%20que%20me%20ayuden%20a%20elegir%20una%20planilla';
+const BACKEND_URL = 'https://exceland-checkout-564525509218.us-central1.run.app';
+
+async function comprar(skill_id) {
+  try {
+    const res = await fetch(`${BACKEND_URL}/create-checkout`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ skill_id })
+    });
+    const data = await res.json();
+    if (data.init_point) {
+      window.location.href = data.init_point;
+    } else {
+      alert('Error iniciando pago');
+      console.error(data);
+    }
+  } catch (e) {
+    alert('Error de conexión');
+    console.error(e);
+  }
+}
 const TELEGRAM_URL = 'https://t.me/exceland';
 const MANIFEST_URL = '/warehouse/manifest.json';
 
@@ -195,13 +215,21 @@ function productCard(product) {
         </div>
 
         <div class="mt-7 flex flex-col sm:flex-row gap-3">
-          <a href="${downloadHref}" class="inline-flex items-center justify-center gap-2 rounded-2xl bg-ink text-white px-5 py-3.5 font-semibold hover:bg-slate-800 transition">
-            <span>${primaryText}</span>
-            <svg viewBox="0 0 20 20" fill="none" class="w-4 h-4">
-              <path d="M10 3v9m0 0l-3-3m3 3l3-3M4 14.5V16a1 1 0 001 1h10a1 1 0 001-1v-1.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
-          <a href="${WHATSAPP_URL}" class="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-300 px-5 py-3.5 font-semibold text-slate-900 hover:border-slate-400 hover:bg-slate-50 transition">
+          ${isFree 
+            ? `<a href="${downloadHref}" class="inline-flex items-center justify-center gap-2 rounded-2xl bg-ink text-white px-5 py-3.5 font-semibold hover:bg-slate-800 transition">
+                <span>${primaryText}</span>
+                <svg viewBox="0 0 20 20" fill="none" class="w-4 h-4">
+                  <path d="M10 3v9m0 0l-3-3m3 3l3-3M4 14.5V16a1 1 0 001 1h10a1 1 0 001-1v-1.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>`
+            : `<button onclick="comprar('${product.slug}')" class="inline-flex items-center justify-center gap-2 rounded-2xl bg-ink text-white px-5 py-3.5 font-semibold hover:bg-slate-800 transition">
+                <span>${primaryText}</span>
+                <svg viewBox="0 0 20 20" fill="none" class="w-4 h-4">
+                  <path d="M12 7l-5 5 5 5m-5-5h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>`
+          }
+          <a href="https://wa.me/5491100000000?text=Hola%20Exceland,%20quiero%20que%20me%20ayuden%20a%20elegir%20una%20planilla" class="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-300 px-5 py-3.5 font-semibold text-slate-900 hover:border-slate-400 hover:bg-slate-50 transition">
             <span>Consultar por WhatsApp</span>
           </a>
         </div>

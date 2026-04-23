@@ -1,0 +1,17 @@
+[
+  {
+    "name": "caja_diaria",
+    "file": "caja_diaria.xlsx",
+    "preview": "caja_diaria.txt"
+  },
+  {
+    "name": "precio_margen",
+    "file": "precio_margen.xlsx",
+    "preview": "precio_margen.txt"
+  },
+  {
+    "name": "conciliador_bancario_macro",
+    "file": "conciliador_macro.xlsx",
+    "preview": "conciliador_macro.txt"
+  }
+]

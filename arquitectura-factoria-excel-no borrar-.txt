@@ -1,0 +1,467 @@
+## Arquitectura objetivo v2 — Factoría de Excel custom
+
+### 1. Propósito
+
+Pasar de “plantillas fijas” a un sistema que compile:
+
+* intención de negocio
+* inputs
+* fórmulas
+* KPIs
+* layout
+* validaciones
+
+en un `.xlsx` profesional y consistente.
+
+---
+
+## 2. Principio central
+
+El usuario **no define celdas**, define **modelo**.
+
+No:
+
+* `MOTOR!C5`
+* `=C5-C7`
+
+Sí:
+
+* `precio_venta`
+* `costo_unitario`
+* `margen_unitario = precio_venta - costo_unitario`
+
+La factoría decide:
+
+* dónde vive cada variable
+* en qué hoja va
+* qué named range usa
+* qué KPI mostrar
+* qué estilo aplicar
+
+---
+
+## 3. Capas del sistema
+
+### A. Intake Layer
+
+Recibe pedido del usuario en una de estas formas:
+
+* prompt natural
+* spec YAML/JSON
+* lista de fórmulas
+* plantilla base + cambios
+
+**Salida**: `WorkbookIntent`
+
+```yaml id="4hvrg2"
+workbook_type: financial_model
+goal: calcular margen y punto de equilibrio
+inputs:
+  - id: precio_venta
+    type: currency
+  - id: costo_unitario
+    type: currency
+  - id: unidades
+    type: integer
+formulas:
+  - id: margen_unitario
+    expr: precio_venta - costo_unitario
+  - id: margen_total
+    expr: margen_unitario * unidades
+dashboard:
+  kpis:
+    - margen_unitario
+    - margen_total
+```
+
+---
+
+### B. Semantic Compiler
+
+Convierte intención en un **spec canónico**.
+
+Responsabilidades:
+
+* normalizar nombres
+* tipar variables
+* validar fórmulas
+* detectar dependencias
+* detectar ciclos
+* inferir outputs
+* clasificar widgets de dashboard
+
+**Salida**: `WorkbookSpec`
+
+---
+
+### C. Formula Graph Engine
+
+Motor clave.
+
+Construye un DAG:
+
+* nodos: inputs, fórmulas, outputs
+* edges: dependencias
+
+Funciones:
+
+* topological sort
+* cycle detection
+* missing variable detection
+* unit/type consistency
+* output classification
+
+**Salida**: `CompiledFormulaPlan`
+
+---
+
+### D. Layout Engine
+
+Toma el plan compilado y decide:
+
+* qué hojas crear
+* dónde poner cada bloque
+* dónde viven inputs
+* dónde viven cálculos
+* qué va al dashboard
+* qué queda oculto
+
+Hojas mínimas:
+
+* `BIENVENIDA`
+* `INPUT`
+* `MOTOR`
+* `DASHBOARD`
+* `GUIA`
+
+Opcionales:
+
+* `SENSIBILIDAD`
+* `TABLAS_AUX`
+* `VALIDACIONES`
+* `CATALOGO`
+
+---
+
+### E. Binding Engine
+
+Asigna referencias reales.
+
+No más hardcodeo manual tipo `MOTOR!C2`.
+
+Genera:
+
+* named ranges
+* cell map
+* formula map
+
+Ejemplo:
+
+```yaml id="rpfd8v"
+precio_venta -> INPUT!C6
+costo_unitario -> INPUT!C7
+unidades -> INPUT!C8
+margen_unitario -> MOTOR!C2
+margen_total -> MOTOR!C3
+```
+
+Y además:
+
+```text id="qay4ma"
+Named ranges:
+precio_venta
+costo_unitario
+unidades
+margen_unitario
+margen_total
+```
+
+---
+
+### F. Validation Engine
+
+Valida en 3 niveles.
+
+#### 1. Spec validation
+
+* campos requeridos
+* tipos válidos
+* fórmulas parseables
+
+#### 2. Model validation
+
+* dependencias válidas
+* sin ciclos
+* outputs existentes
+* dashboard consistente
+
+#### 3. Workbook validation
+
+* data validations
+* protección de celdas
+* referencias resueltas
+* named ranges existentes
+* hojas mínimas presentes
+
+---
+
+### G. Workbook Builder
+
+Construye el `.xlsx`.
+
+Responsabilidades:
+
+* crear workbook
+* crear hojas
+* escribir labels
+* escribir fórmulas Excel
+* aplicar named ranges
+* aplicar estilos
+* aplicar validaciones
+* proteger hojas
+* exportar archivo
+
+---
+
+### H. Postprocess Engine
+
+Corre después del build.
+
+Responsabilidades:
+
+* data validation real
+* freeze panes
+* widths
+* merges
+* conditional formatting
+* charts
+* cleanup final
+
+---
+
+## 4. Contratos internos
+
+### WorkbookIntent
+
+Entrada flexible.
+
+### WorkbookSpec
+
+Contrato canónico del workbook.
+
+### FormulaNode
+
+```yaml id="jk1m1r"
+id: margen_total
+kind: formula
+expr: margen_unitario * unidades
+output_type: currency
+dependencies:
+  - margen_unitario
+  - unidades
+```
+
+### Canonical KPI Spec
+
+```yaml id="cnh0fa"
+id: margen_total
+label: Margen total
+format: currency
+source: margen_total
+widget: card
+```
+
+### LayoutBlock
+
+```yaml id="juf3gu"
+type: input_table
+sheet: INPUT
+anchor: B5
+fields:
+  - precio_venta
+  - costo_unitario
+  - unidades
+```
+
+---
+
+## 5. Estructura de carpetas v2
+
+```text id="sw4k2h"
+exceland_factory/
+  cli.py
+  factory.py
+
+  contracts/
+    intent.py
+    spec.py
+    formula_graph.py
+    layout.py
+    build_result.py
+
+  compiler/
+    intent_parser.py
+    spec_compiler.py
+    formula_compiler.py
+    dependency_graph.py
+    validator.py
+
+  engine/
+    binding_engine.py
+    layout_engine.py
+    dashboard_engine.py
+    workbook_planner.py
+
+  builders/
+    workbook_builder.py
+    sheets/
+      welcome_builder.py
+      input_builder.py
+      motor_builder.py
+      dashboard_builder.py
+      guide_builder.py
+
+  postprocess/
+    validations.py
+    protection.py
+    charts.py
+    named_ranges.py
+    formatting.py
+
+  catalogs/
+    formulas.yaml
+    validations.yaml
+    widgets.yaml
+    templates.yaml
+
+  themes/
+    brand.json
+    dark_modern.json
+    clean_corporate.json
+
+  templates/
+    workbook_presets/
+
+  tests/
+    unit/
+    integration/
+    golden/
+```
+
+---
+
+## 6. Modo “usuario trae fórmula”
+
+Flujo ideal:
+
+### Entrada
+
+```yaml id="lktae1"
+inputs:
+  - precio_venta: currency
+  - costo_unitario: currency
+  - unidades: integer
+
+formulas:
+  - margen_unitario = precio_venta - costo_unitario
+  - margen_total = margen_unitario * unidades
+```
+
+### El compilador hace:
+
+* parsea expresiones
+* detecta variables
+* crea grafo
+* ordena cálculo
+* asigna celdas
+* genera fórmulas Excel
+* crea dashboard automáticamente
+
+### Salida
+
+* workbook listo
+* resumen de variables
+* mapa de dependencias
+* errores si faltan cosas
+
+---
+
+## 7. Reglas duras
+
+### No hardcodear dashboard
+
+El dashboard debe salir del spec.
+
+### No hardcodear posiciones del motor
+
+El motor debe salir del grafo y del planner.
+
+### No escribir referencias directas manuales
+
+Usar named ranges o cell map central.
+
+### No permitir fórmulas inválidas
+
+Fail-closed.
+
+### No mezclar visual con lógica
+
+Estilo separado del cálculo.
+
+---
+
+## 8. Roadmap inmediato
+
+### Fase 1
+
+* conectar postprocess al pipeline
+* sacar dashboard hardcodeado
+* introducir named ranges
+* introducir `WorkbookSpec` canónico
+
+### Fase 2
+
+* formula graph engine
+* planner de MOTOR automático
+* dashboard declarativo
+
+### Fase 3
+
+* intake natural language → spec
+* presets por tipo de negocio
+* golden tests de workbooks
+
+---
+
+## 9. Resultado buscado
+
+Que el usuario pueda decir:
+
+> “Necesito un Excel para margen, punto de equilibrio y flujo”
+
+y el sistema produzca:
+
+* inputs correctos
+* fórmulas válidas
+* dashboard correcto
+* validaciones reales
+* layout profesional
+* archivo exportable sin tocar celda a mano
+
+---
+
+## 10. Decisión
+
+La v2 debe construirse como:
+
+**compilador de modelos Excel**
++
+**motor de layout**
++
+**motor de validación**
++
+**builder de workbook**
+
+No como suma de plantillas fijas.
+
+Si querés, el próximo paso lo bajo a **plan de implementación v2 por fases y archivos concretos**.

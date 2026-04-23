@@ -1,0 +1,23 @@
+[
+  {
+    "name": "precios_y_rentabilidad",
+    "category": "pricing",
+    "description": "Calculá el precio de venta ideal a partir del costo y margen deseado.",
+    "formulas": [
+      "precio_con_margen"
+    ],
+    "preview_text": "Ingresás costo y margen → obtenés el precio de venta óptimo.",
+    "use_case": "Ideal para negocios que quieren fijar precios con margen controlado."
+  },
+  {
+    "name": "caja_y_flujo",
+    "category": "cashflow",
+    "description": "Registrá ingresos y egresos del período y calculá el flujo neto y saldo final.",
+    "formulas": [
+      "flujo_caja_neto",
+      "saldo_acumulado"
+    ],
+    "preview_text": "Ingresás ingresos, egresos y saldo inicial → obtenés flujo neto y saldo final.",
+    "use_case": "Ideal para negocios que necesitan controlar su liquidez período a período."
+  }
+]

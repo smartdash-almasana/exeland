@@ -9,6 +9,10 @@ from exceland_factory.registry import load_product_registry
 from exceland_factory.validators import load_spec
 from exceland_factory.workbook_builder import build_workbook
 
+# NUEVOS IMPORTS (skills)
+from exceland_factory.skills.skill_registry import list_skills
+from exceland_factory.skills.skill_runner import build_from_skill
+
 
 def build_product(slug_or_path: str, output_path: Path | None = None) -> BuildResult:
     """
@@ -48,6 +52,30 @@ def build_all_products(output_dir: Path | None = None) -> list[BuildResult]:
             out = output_dir / f"{slug}.xlsx"
 
         result = build_product(entry.spec_path, out)
+        results.append(result)
+
+    return results
+
+
+def build_from_all_skills(output_dir: Path) -> list[BuildResult]:
+    """
+    Construye un archivo Excel por cada skill registrada.
+
+    Args:
+        output_dir: carpeta destino (ej: dist/skills)
+
+    Returns:
+        Lista de BuildResult, uno por skill.
+    """
+    results: list[BuildResult] = []
+
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    for skill in list_skills():
+        name = skill["name"]
+        output_path = output_dir / f"{name}.xlsx"
+
+        result = build_from_skill(name, output_path)
         results.append(result)
 
     return results

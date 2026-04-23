@@ -1,0 +1,4 @@
+NAME: precios_y_rentabilidad
+DESCRIPTION: calcular precio con margen
+PREVIEW: ingresas costo y margen y obtenes precio final
+USE CASE: definir precios de venta

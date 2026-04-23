@@ -1,0 +1,4 @@
+NAME: Calculadora Precio y Margen
+DESCRIPTION: Determiná el precio ideal para tus productos.
+PREVIEW: Cálculo de margen bruto, markup y punto de equilibrio por producto.
+USE CASE: Ideal para emprendedores que venden productos físicos.
