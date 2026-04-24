@@ -519,22 +519,25 @@
     const BACKEND_URL = "https://exceland-checkout-564525509218.us-central1.run.app";
 
     async function comprar(skill_id) {
+      console.log("[comprar] skill_id enviado:", skill_id);
       try {
         const res = await fetch(`${BACKEND_URL}/create-checkout`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ skill_id })
         });
+        console.log("[comprar] status HTTP:", res.status);
         const data = await res.json();
+        console.log("[comprar] respuesta backend:", data);
         if (data.init_point) {
           window.location.href = data.init_point;
         } else {
           alert("Error iniciando pago");
-          console.error(data);
+          console.error("[comprar] sin init_point:", data);
         }
       } catch (e) {
         alert("Error de conexión");
-        console.error(e);
+        console.error("[comprar] excepción:", e);
       }
     }
 
