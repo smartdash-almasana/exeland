@@ -583,6 +583,12 @@
         ? `<div class="absolute top-3 right-3 bg-emerald-500 text-white text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded-full shadow">Gratis</div>`
         : "";
 
+      const macroBanner = skill.has_macros === true
+        ? `<div class="absolute top-3 left-3 bg-[#1a2e4a] text-white text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full shadow flex items-center gap-1">
+            <span class="material-symbols-outlined text-[12px]">bolt</span>Con Macro
+           </div>`
+        : "";
+
       const fallbackImg = "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80";
       const cover = skill.image || skill.cover || fallbackImg;
 
@@ -593,6 +599,7 @@
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               onerror="this.src='${fallbackImg}'" />
             ${freeBanner}
+            ${macroBanner}
           </div>
           <div class="p-5 flex flex-col flex-1">
             <div class="flex items-center gap-2 mb-3 flex-wrap">
