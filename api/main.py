@@ -9,9 +9,20 @@ from flask import Flask, jsonify, request
 app = Flask(__name__)
 
 PRODUCT_PRICES: dict[str, float] = {
-    "precios_y_rentabilidad": 3000,
-    "caja_y_flujo": 3000,
-    "conciliador_bancario_macro": 3000,
+    "control_de_gastos": 0,
+    "caja_diaria": 7900,
+    "precio_margen": 8900,
+    "stock_control": 9900,
+    "auto_stock": 14900,
+    "compras_y_proveedores": 17900,
+    "costos_por_producto": 16900,
+    "cuentas_corrientes_clientes": 24900,
+    "flujo_de_fondos": 22900,
+    "proyeccion_ventas": 15900,
+    "punto_equilibrio": 14900,
+    "rentabilidad_por_producto": 26900,
+    "simulador_inflacion": 18900,
+    "conciliador_bancario_macro": 39900,
 }
 
 BASE_URL = os.environ.get("BASE_URL", "https://exceland.web.app")
@@ -36,7 +47,16 @@ def create_checkout():
     skill_id = body.get("skill_id")
 
     if not skill_id or skill_id not in PRODUCT_PRICES:
-        return jsonify({"error": "skill_id inválido"}), 400
+        return jsonify({"error": "skill_id inválido", "skill_id": skill_id}), 400
+
+    unit_price = PRODUCT_PRICES[skill_id]
+
+    if unit_price <= 0:
+        return jsonify({
+            "error": "producto gratuito",
+            "message": "Este producto no requiere checkout de Mercado Pago.",
+            "skill_id": skill_id,
+        }), 400
 
     token = os.environ.get("MP_ACCESS_TOKEN")
     if not token:
@@ -51,7 +71,7 @@ def create_checkout():
                     "title": skill_id,
                     "quantity": 1,
                     "currency_id": "ARS",
-                    "unit_price": PRODUCT_PRICES[skill_id],
+                    "unit_price": unit_price,
                 }
             ],
             "back_urls": {
@@ -66,7 +86,7 @@ def create_checkout():
         if not init_point:
             return jsonify({
                 "error": "error creando preferencia",
-                "mp_result": result
+                "mp_result": result,
             }), 500
 
         return jsonify({"init_point": init_point})

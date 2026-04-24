@@ -297,5 +297,28 @@
     "has_macros": false,
     "difficulty": "Intermedio",
     "ideal_for": "Negocios que necesitan ajustar precios por inflación"
+  },
+  {
+    "slug": "conciliador_bancario_macro",
+    "name": "Conciliador Bancario Macro",
+    "file": "conciliador_bancario_macro.xlsx",
+    "image": "./assets/templates/conciliador_bancario_macro.webp",
+    "category": "Automatización",
+    "tags": ["banco", "conciliacion", "macro", "pagos", "movimientos", "automatizacion"],
+    "description": "Conciliá movimientos bancarios contra tu planilla con una automatización lista para usar.",
+    "preview_text": "Pegás movimientos del banco y registros internos → ejecutás el botón → detectás diferencias y pagos no conciliados.",
+    "use_case": "Ideal para negocios que cobran por transferencia, Mercado Pago o banco y necesitan controlar movimientos semanalmente.",
+    "features": ["Botón de conciliación automática", "Cruce de movimientos bancarios", "Detección de pagos no conciliados", "Resumen de diferencias"],
+    "is_featured": true,
+    "is_free": false,
+    "price_label": "$39.900",
+    "price_ars": 39900,
+    "price_tier": "premium",
+    "custom_available": true,
+    "custom_from_ars": 150000,
+    "custom_from_label": "desde $150.000",
+    "has_macros": true,
+    "difficulty": "Avanzado",
+    "ideal_for": "Comercios, estudios contables, administradores y PyMEs con muchos movimientos bancarios"
   }
 ]
